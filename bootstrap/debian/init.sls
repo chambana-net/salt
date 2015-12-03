@@ -25,7 +25,7 @@ sources_list_default:
 sources_list_default_src:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} sources
-    - name: deb-src http://httpredir.debian.org/ {{ settings.get('dist', 'jessie') }} {{ settings.get('components', 'main') }}
+    - name: deb-src http://httpredir.debian.org/debian {{ settings.get('dist', 'jessie') }} {{ settings.get('components', 'main') }}
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
@@ -95,7 +95,7 @@ sources_list_testing:
 sources_list_testing_src:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} sources
-    - name: deb-src http://httpredir.debian.org/ testing {{ settings.get('components', 'main') }}
+    - name: deb-src http://httpredir.debian.org/debian testing {{ settings.get('components', 'main') }}
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/testing.list
     - require:
