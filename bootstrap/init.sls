@@ -32,6 +32,7 @@ issue:
     - group: root
     - mode: 644
 
+issue_net:
   file.managed:
     - name: {{ bootstrap.issue_net }}
     - source: {{ settings.get('issue_net', 'salt://bootstrap/files/issue.net') }}
