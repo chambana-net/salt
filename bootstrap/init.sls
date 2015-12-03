@@ -3,13 +3,13 @@
 
 {% if grains['os'] == 'Arch'%}
 include:
-	- arch
+  - arch
 {% elif grains['os'] == 'Debian'%}
 include:
-	- debian
+  - debian
 {% elif grains['os'] == 'RedHat'%}
 include:
-	- fedora
+  - fedora
 {% endif %}
 
 utilities:
