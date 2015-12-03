@@ -1,6 +1,6 @@
 {% set settings = salt['pillar.get']('bootstrap:lookup:settings:debian', {}) %}
 
-packages:
+apt_packages:
   pkg.installed:
     - pkgs:
       - python-apt
@@ -15,7 +15,7 @@ sources_list_default:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - pkg: python-apt
+      - pkg: apt_packages
     - consolidate: true
 
 sources_list_default_src:
@@ -25,7 +25,7 @@ sources_list_default_src:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - pkg: python-apt
+      - pkg: apt_packages
     - consolidate: true
 
 sources_list_security:
@@ -35,7 +35,7 @@ sources_list_security:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - python-apt
+      - apt_packages
     - consolidate: true
 
 sources_list_security_src:
@@ -45,7 +45,7 @@ sources_list_security_src:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - pkg: python-apt
+      - pkg: apt_packages
     - consolidate: true
 
 sources_list_updates:
@@ -55,7 +55,7 @@ sources_list_updates:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - pkg: python-apt
+      - pkg: apt_packages
     - consolidate: true
 
   file.managed:
@@ -75,7 +75,7 @@ sources_list_updates_src:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - pkg: python-apt
+      - pkg: apt_packages
     - consolidate: true
 
 sources_list_experimental:
@@ -85,7 +85,7 @@ sources_list_experimental:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - pkg: python-apt
+      - pkg: apt_packages
     - consolidate: true
 
 apt_preferences_defaultrelease:
