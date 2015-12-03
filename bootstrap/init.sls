@@ -13,8 +13,8 @@ include:
 {% endif %}
 
 utilities:
-	pkg.installed:
-		- names:
+  pkg.installed:
+    - names:
       - vim
       - screen
       - less

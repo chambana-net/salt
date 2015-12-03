@@ -1,11 +1,11 @@
 {% set settings = salt['pillar.get']('bootstrap:lookup:settings:debian', {}) %}
 
 packages:
-	pkg.installed:
-		- python-apt
-		- aptitude
-		- debconf-utils
-		- apt-utils
+  pkg.installed:
+    - python-apt
+    - aptitude
+    - debconf-utils
+    - apt-utils
 
 sources_list:
   pkgrepo.managed:
