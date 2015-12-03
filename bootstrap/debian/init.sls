@@ -35,7 +35,7 @@ sources_list_security:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - apt_packages
+      - pkg: apt_packages
     - consolidate: true
 
 sources_list_security_src:
