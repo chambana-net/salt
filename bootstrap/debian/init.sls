@@ -67,16 +67,6 @@ sources_list_updates:
     - group: root
     - mode: 644
 
-  file.managed:
-    - name: /etc/apt/preferences.d/updates
-    - source: salt://bootstrap/debian/files/apt/apt.conf.d/99default-release
-    - template: jinja
-    - defaults:
-        dist: {{ settings.get('dist', 'jessie') }}
-    - user: root
-    - group: root
-    - mode: 644
-
 sources_list_updates_src:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} updates sources
@@ -96,3 +86,14 @@ sources_list_experimental:
     - require:
       - pkg: python-apt
     - consolidate
+
+apt_preferences_defaultrelease:
+  file.managed:
+    - name: /etc/apt/preferences.d/updates
+    - source: salt://bootstrap/debian/files/apt/apt.conf.d/99default-release
+    - template: jinja
+    - defaults:
+        dist: {{ settings.get('dist', 'jessie') }}
+    - user: root
+    - group: root
+    - mode: 644
