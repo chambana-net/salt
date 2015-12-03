@@ -8,6 +8,10 @@ apt_packages:
       - debconf-utils
       - apt-utils
 
+sources_list:
+  file.absent:
+    - name: /etc/apt/sources.list
+
 sources_list_default:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} packages
@@ -130,7 +134,7 @@ sources_list_experimental:
 
 apt_preferences_defaultrelease:
   file.managed:
-    - name: /etc/apt/preferences.d/updates
+    - name: /etc/apt/apt.conf.d/99default-release
     - source: salt://bootstrap/debian/files/apt/apt.conf.d/99default-release
     - template: jinja
     - defaults:
