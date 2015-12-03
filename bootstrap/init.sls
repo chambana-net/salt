@@ -3,13 +3,13 @@
 
 {% if grains['os'] == 'Arch'%}
 include:
-  - arch
+  - bootstrap.arch
 {% elif grains['os'] == 'Debian'%}
 include:
-  - debian
+  - bootstrap.debian
 {% elif grains['os'] == 'RedHat'%}
 include:
-  - fedora
+  - bootstrap.fedora
 {% endif %}
 
 utilities:
