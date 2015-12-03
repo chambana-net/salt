@@ -1,0 +1,12 @@
+{% set debian = salt['grains.filter_by']({
+    'Debian': {
+        'issue': '/etc/issue',
+        'issue_net': '/etc/issue.net',
+        'motd': '/etc/motd',
+        'fortunes': '/usr/share/games/fortunes',
+        'skel': '/etc/skel',
+        'bash_bashrc': '/etc/bash.bashrc',
+        'aliases': '/etc/aliases',
+        'tls_trust_file': '/etc/ssl/certs/ca-certificates.crt',
+    },
+}, merge=salt['pillar.get']('bootstrap:lookup')) %}
