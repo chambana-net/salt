@@ -3,9 +3,10 @@
 
 msmtp:
   pkg.installed:
-    - msmtp
-{% if os.grains['os'] != 'RedHat' %}
-    - msmtp-mta
+    - pkgs:
+      - msmtp
+{% if grains['os'] != 'RedHat' %}
+      - msmtp-mta
 {% endif %}
 
   file.managed:
@@ -21,7 +22,7 @@ msmtp:
         password: {{ settings.get('password', '') }}
         host: {{ settings.get('host', '') }}
         port: {{ settings.get('port', '25') }}
-        maildomain: {{ settings.get('maildomain', os.grains['fqdn']) }}
+        maildomain: {{ settings.get('maildomain', grains['fqdn']) }}
 
 aliases:
   file.managed:
