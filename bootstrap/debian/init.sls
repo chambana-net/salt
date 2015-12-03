@@ -18,6 +18,8 @@ sources_list_default:
     - name: deb http://httpredir.debian.org/debian {{ settings.get('dist', 'jessie') }} {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
+      - file: sources_list
+    - require_in:
       - pkg: apt_packages
 
 sources_list_default_src:
@@ -25,32 +27,24 @@ sources_list_default_src:
     - humanname: {{ settings.get('dist', 'jessie') }} sources
     - name: deb-src http://httpredir.debian.org/debian {{ settings.get('dist', 'jessie') }} {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/distro.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_security:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} security updates
     - name: deb http://security.debian.org/ {{ settings.get('dist', 'jessie') }}/updates {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/distro.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_security_src:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} security updates sources
     - name: deb-src http://security.debian.org/ {{ settings.get('dist', 'jessie') }}/updates {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/distro.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_updates:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} updates
     - name: deb http://httpredir.debian.org/debian {{ settings.get('dist', 'jessie') }}-updates {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/distro.list
-    - require:
-      - pkg: apt_packages
 
   file.managed:
     - name: /etc/apt/preferences.d/updates
@@ -67,48 +61,36 @@ sources_list_updates_src:
     - humanname: {{ settings.get('dist', 'jessie') }} updates sources
     - name: deb-src http://httpredir.debian.org/debian {{ settings.get('dist', 'jessie') }}-updates {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/distro.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_testing:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} packages
     - name: deb http://httpredir.debian.org/debian testing {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/testing.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_testing_src:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} sources
     - name: deb-src http://httpredir.debian.org/debian testing {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/testing.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_testing_security:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} security updates
     - name: deb http://security.debian.org/ testing/updates {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/testing.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_testing_security_src:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} security updates sources
     - name: deb-src http://security.debian.org/ testing/updates {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/testing.list
-    - require:
-      - pkg: apt_packages
 
 sources_list_experimental:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} updates
     - name: deb http://httpredir.debian.org/debian experimental {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/experimental.list
-    - require:
-      - pkg: apt_packages
 
 apt_preferences_defaultrelease:
   file.managed:
