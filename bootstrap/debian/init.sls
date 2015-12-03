@@ -2,10 +2,11 @@
 
 packages:
   pkg.installed:
-    - python-apt
-    - aptitude
-    - debconf-utils
-    - apt-utils
+    - pkgs:
+      - python-apt
+      - aptitude
+      - debconf-utils
+      - apt-utils
 
 sources_list_default:
   pkgrepo.managed:
@@ -15,7 +16,7 @@ sources_list_default:
     - file: /etc/apt/sources.list.d/distro.list
     - require:
       - pkg: python-apt
-    - consolidate
+    - consolidate: true
 
 sources_list_default_src:
   pkgrepo.managed:
@@ -25,7 +26,7 @@ sources_list_default_src:
     - file: /etc/apt/sources.list.d/distro.list
     - require:
       - pkg: python-apt
-    - consolidate
+    - consolidate: true
 
 sources_list_security:
   pkgrepo.managed:
@@ -34,8 +35,8 @@ sources_list_security:
     - dist: {{ settings.get('dist', 'jessie') }}
     - file: /etc/apt/sources.list.d/distro.list
     - require:
-      - pkg: python-apt
-    - consolidate
+      - python-apt
+    - consolidate: true
 
 sources_list_security_src:
   pkgrepo.managed:
@@ -45,7 +46,7 @@ sources_list_security_src:
     - file: /etc/apt/sources.list.d/distro.list
     - require:
       - pkg: python-apt
-    - consolidate
+    - consolidate: true
 
 sources_list_updates:
   pkgrepo.managed:
@@ -55,7 +56,7 @@ sources_list_updates:
     - file: /etc/apt/sources.list.d/distro.list
     - require:
       - pkg: python-apt
-    - consolidate
+    - consolidate: true
 
   file.managed:
     - name: /etc/apt/preferences.d/updates
@@ -75,7 +76,7 @@ sources_list_updates_src:
     - file: /etc/apt/sources.list.d/distro.list
     - require:
       - pkg: python-apt
-    - consolidate
+    - consolidate: true
 
 sources_list_experimental:
   pkgrepo.managed:
@@ -85,7 +86,7 @@ sources_list_experimental:
     - file: /etc/apt/sources.list.d/distro.list
     - require:
       - pkg: python-apt
-    - consolidate
+    - consolidate: true
 
 apt_preferences_defaultrelease:
   file.managed:

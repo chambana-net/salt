@@ -14,7 +14,7 @@ include:
 
 utilities:
   pkg.installed:
-    - names:
+    - pkgs:
       - vim
       - screen
       - less
@@ -42,7 +42,9 @@ issue_net:
 
 fortunes:
   pkg.installed:
-    - fortune-mod
+    - pkg:
+      - fortune-mod
+
   file.recurse:
     - name: {{ bootstrap.fortunes }}
     - source: {{ settings.get('fortunes', 'salt://bootstrap/files/fortunes') }}
