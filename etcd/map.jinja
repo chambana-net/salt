@@ -1,7 +1,7 @@
 {% set etcd = salt['grains.filter_by']({
     'Debian': {
         'configfile': '/etc/default/etcd',
-        'data-dir': '/var/lib/etcd/default',
-        'wal-dir': '',
+        'data_dir': '/var/lib/etcd/default',
+        'wal_dir': '',
     },
 }, merge=salt['pillar.get']('etcd:lookup')) %}
