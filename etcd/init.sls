@@ -27,7 +27,7 @@ etcd:
         max_snapshots: {{ settings.get('max_snapshots', 5) }}
         max_wals: {{ settings.get('max_wals', 5) }}
         initial_cluster_state: {{ settings.get('initial_cluster_state', "new") }}
-        initial_cluster_token: {{ settings.get('initial_cluster_token', grains['fqdn']) }}
+        initial_cluster_token: {{ settings.get('initial_cluster_token', grains['domain']) }}
 
 etcd_service:
   service.running:
