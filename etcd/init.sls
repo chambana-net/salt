@@ -4,7 +4,7 @@
 
 etcd:
   pkg.installed:
-    -name: etcd
+    - name: etcd
 
   file.managed:
     - name: {{ etcd.configfile }}
