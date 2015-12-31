@@ -13,6 +13,7 @@ etcd:
     - group: root
     - mode: 0644
     - replace: true
+    - template: jinja
     - defaults:
         node_ip: {{ grains['fqdn_ip4'][0] }}
         peer_port: {{ settings.get('peer_port', 7001) }}
