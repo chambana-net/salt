@@ -18,8 +18,8 @@ etcd:
         peer_port: {{ settings.get('peer_port', 7001) }}
         client_port: {{ settings.get('client_port', 4001) }}
         name: {{ settings.get('name', grains['host']) }}
-        data-dir: {{ settings.get('data-dir', etcd.data-dir) }}
-        wal-dir: {{ settings.get('wal-dir', etcd.wal-dir) }}
+        data-dir: {{ etcd.data-dir }}
+        wal-dir: {{ etcd.wal-dir }}
         snapshot-count: {{ settings.get('snapshot-count', 10000) }}
         heartbeat-interval: {{ settings.get('heartbeat-interval', 100) }}
         election-timeout: {{ settings.get('election-timeout', 1000) }}
