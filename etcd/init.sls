@@ -46,9 +46,10 @@ etcd:
 
 etcd_service:
   service.running:
+    - name: etcd
     - enable: True
-    - reload: True
     - require:
       - pkg: etcd
     - watch:
+      - pkg: etcd
       - file: etcd
