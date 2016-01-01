@@ -2,7 +2,7 @@
 {% set peers = salt['pillar.get']('cluster:peers', {}) %}
 {% set settings = salt['pillar.get']('etcd:lookup:settings', {}) %}
 
-{% set node_ip = grains['fqdn_ip4'][1] -%}
+{% set node_ip = salt['grains.get']('ip4_interfaces:eth0', ['127.0.0.1'])[0] -%}
 {% set peer_port = settings.get('peer_port', 7001)|string -%}
 {% set client_port = settings.get('client_port', 4001)|string -%}
 {% set peer_string = [] -%}
