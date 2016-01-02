@@ -14,15 +14,11 @@ flannel_install:
       - pkg: golang
       - pkg: gcc
 
-flannel_etcd_local:
-  etcd.host: 127.0.0.1
-  etcd.port: 4001
-
 flannel_config:
   etcd.set:
     - name: /coreos.com/network/config
     - value: '{ "Network": "172.16.0.0/12", "Backend": { "Type": "vxlan", "VNI": 1 } }'
-    - profile: flannel_etcd_local
+    - profile: etcd_local
     - require:
       - sls: etcd
 
