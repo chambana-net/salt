@@ -14,7 +14,9 @@
 
 etcd:
   pkg.installed:
-    - name: etcd
+    - pkgs: 
+      - etcd
+      - python-etcd
 
   file.managed:
     - name: {{ etcd.configfile }}
