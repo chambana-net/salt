@@ -1,5 +1,5 @@
 flannel_packages:
-  pkg.latest:
+  pkg.installed:
     - pkgs: 
       - linux-libc-dev
       - golang
@@ -18,6 +18,13 @@ flannel_install:
     - name: ./build
     - require:
       - pkg: flannel_packages
+
+  file.copy:
+    - name: /usr/local/bin/flannel
+    - source: /usr/local/src/flannel/bin/flanneld
+    - user: root
+    - group: root
+    - mode: 0775
 
 flannel_config:
   etcd.set:
