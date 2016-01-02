@@ -1,3 +1,6 @@
+include:
+  - etcd
+
 flannel_packages:
   pkg.installed:
     - pkgs: 
@@ -20,7 +23,7 @@ flannel_install:
       - pkg: flannel_packages
 
   file.copy:
-    - name: /usr/local/bin/flannel
+    - name: /usr/local/bin/flanneld
     - source: /usr/local/src/flannel/bin/flanneld
     - user: root
     - group: root
