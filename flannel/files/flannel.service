@@ -3,7 +3,7 @@ Requires=etcd.service
 After=etcd.service
 
 [Service]
-ExecStart=/usr/local/bin/flannel
+ExecStart=/usr/local/bin/flanneld
 
 [Install]
 WantedBy=multi-user.target

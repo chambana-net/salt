@@ -30,7 +30,7 @@ etcd:
         initial_cluster: {{ peer_string|join(',') }}
         initial_advertise_peer_urls: "http://{{ node_ip }}:{{ peer_port }}"
         listen_peer_urls: "http://{{ node_ip }}:{{ peer_port }}"
-        listen_client_urls: "http://{{ node_ip }}:{{ client_port }}"
+        listen_client_urls: "http://0.0.0.0:{{ client_port }}"
         advertise_client_urls: "http://{{ node_ip }}:{{ client_port }}"
         node_ip: {{ node_ip }}
         peer_port: {{ peer_port }}
