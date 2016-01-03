@@ -38,7 +38,7 @@ flannel_config:
       - sls: etcd
 
 flannel_service:
-  file.copy:
+  file.managed:
     - name: /etc/systemd/system/flannel.service
     - source: salt://flannel/files/flannel.service
     - user: root
@@ -49,4 +49,5 @@ flannel_service:
     - name: flannel
     - enable: True
     - require:
+      - file: flannel_service
       - etcd: flannel_config
