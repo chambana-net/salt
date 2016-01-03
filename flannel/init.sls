@@ -29,6 +29,18 @@ flannel_install:
     - group: root
     - mode: 0775
 
+flannel_service:
+  file.copy:
+    - name: /etc/systemd/system/flannel.service
+    - source: salt://flannel/files/flannel.service
+    - user: root
+    - group: root
+    - mode: 0644
+
+  service.running:
+    - name: flannel
+    - enable: True
+
 flannel_config:
   etcd.set:
     - name: /coreos.com/network/config
@@ -40,4 +52,6 @@ flannel_config:
 flannel_run:
   cmd.run:
     - name: /usr/local/bin/flanneld
+    - require:
+      - etcd: flannel_config
 
