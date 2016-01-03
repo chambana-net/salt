@@ -29,6 +29,14 @@ flannel_install:
     - group: root
     - mode: 0775
 
+flannel_config:
+  etcd.set:
+    - name: /coreos.com/network/config
+    - value: '{ "Network": "172.16.0.0/12", "Backend": { "Type": "vxlan", "VNI": 1 } }'
+    - profile: etcd_local
+    - require:
+      - sls: etcd
+
 flannel_service:
   file.copy:
     - name: /etc/systemd/system/flannel.service
@@ -40,18 +48,5 @@ flannel_service:
   service.running:
     - name: flannel
     - enable: True
-
-flannel_config:
-  etcd.set:
-    - name: /coreos.com/network/config
-    - value: '{ "Network": "172.16.0.0/12", "Backend": { "Type": "vxlan", "VNI": 1 } }'
-    - profile: etcd_local
-    - require:
-      - sls: etcd
-
-flannel_run:
-  cmd.run:
-    - name: /usr/local/bin/flanneld
     - require:
       - etcd: flannel_config
-
