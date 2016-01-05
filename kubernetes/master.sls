@@ -9,7 +9,7 @@ kube_master_group:
 kube_master_user:
   user.present:
     - name: kube
-    - full_name: Kubernetes User
+    - fullname: Kubernetes User
     - system: True
     - gid_from_name: True
     - home: {{ kubernetes.prefix }}
@@ -23,6 +23,7 @@ kube-apiserver:
     - user: root
     - group: root
     - mode: 0750
+    - makedirs: True
 
 kube-apiserver_config:
   file.managed:
@@ -32,6 +33,7 @@ kube-apiserver_config:
     - user: root
     - group: root
     - mode: 0644
+    - makedirs: True
     - defaults:
         insecure-bind-address: {{ settings.get('insecure-bind-address', '0.0.0.0') }}
         insecure-port: {{ settings.get('insecure-port', '8080') }}
@@ -70,6 +72,7 @@ kube-controller-manager:
     - user: root
     - group: root
     - mode: 0750
+    - makedirs: True
 
 kube-controller-manager_config:
   file.managed:
@@ -79,6 +82,7 @@ kube-controller-manager_config:
     - user: root
     - group: root
     - mode: 0644
+    - makedirs: True
     - defaults:
         master: {{ settings.get('master', '127.0.0.1:8080') }}
         root-ca-file: {{ settings.get('root-ca-file', kubernetes.resource_dir ~ '/ca.crt') }}
@@ -110,6 +114,7 @@ kube-scheduler:
     - user: root
     - group: root
     - mode: 0750
+    - makedirs: True
 
 kube-scheduler_config:
   file.managed:
@@ -119,6 +124,7 @@ kube-scheduler_config:
     - user: root
     - group: root
     - mode: 0644
+    - makedirs: True
     - defaults:
         master: {{ settings.get('master', '127.0.0.1:8080') }}
         other-opts: {{ settings.get('other-opts', '') }}
@@ -148,6 +154,7 @@ kubectl:
     - user: root
     - group: root
     - mode: 0750
+    - makedirs: True
 
 kube_profile:
   file.managed:
@@ -156,5 +163,6 @@ kube_profile:
     - user: root
     - group: root
     - mode: 0644
+    - makedirs: True
     - require:
       - file: kubectl

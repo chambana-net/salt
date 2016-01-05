@@ -9,7 +9,7 @@ kube_node_group:
 kube_node_user:
   user.present:
     - name: kube
-    - full_name: Kubernetes User
+    - fullname: Kubernetes User
     - system: True
     - gid_from_name: True
     - home: {{ kubernetes.prefix }}
@@ -23,6 +23,7 @@ kubelet:
     - user: root
     - group: root
     - mode: 0750
+    - makedirs: True
 
 kubelet_config:
   file.managed:
@@ -32,6 +33,7 @@ kubelet_config:
     - user: root
     - group: root
     - mode: 0644
+    - makedirs: True
     - defaults:
         hostname-override: {{ settings.get('hostname-override', '') }}
         api-servers: {{ settings.get('api-servers', 'http://127.0.0.1:8080') }}
@@ -64,6 +66,7 @@ kube-proxy:
     - user: root
     - group: root
     - mode: 0750
+    - makedirs: True
 
 kube-proxy_config:
   file.managed:
@@ -73,6 +76,7 @@ kube-proxy_config:
     - user: root
     - group: root
     - mode: 0644
+    - makedirs: True
     - defaults:
         hostname-override: {{ settings.get('hostname-override', '') }}
         master: {{ settings.get('master', 'http://127.0.0.1:8080') }}
