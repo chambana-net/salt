@@ -40,9 +40,9 @@ kube-apiserver_config:
         admission-control: {{ settings.get('admission-control', '') }}
         service-node-port-range: {{ settings.get('service-node-port-range', '') }}
         advertise-address: {{ settings.get('advertise-address', '' ) }}
-        client-ca-file: {{ settings.get('client-ca-file', '{{ kubernetes.resource_dir }}/ca.crt') }}
-        tls-cert-file: {{ settings.get('tls-cert-file', '{{ kubernetes.resource_dir }}/server.cert') }}
-        tls-private-key-file: {{ settings.get('tls-private-key-file', '{{ kubernetes.resource_dir }}/server.key') }}
+        client-ca-file: {{ settings.get('client-ca-file', kubernetes.resource_dir ~ '/ca.crt') }}
+        tls-cert-file: {{ settings.get('tls-cert-file', kubernetes.resource_dir ~ '/server.cert') }}
+        tls-private-key-file: {{ settings.get('tls-private-key-file', kubernetes.resource_dir ~ '/server.key') }}
         other-opts: {{ settings.get('other-opts', '') }}
 
 kube-apiserver_service:
@@ -81,8 +81,8 @@ kube-controller-manager_config:
     - mode: 0644
     - defaults:
         master: {{ settings.get('master', '127.0.0.1:8080') }}
-        root-ca-file: {{ settings.get('root-ca-file', '{{ kubernetes.resource_dir }}/ca.crt') }}
-        service-account-private-key-file: {{ settings.get('service-account-private-key-file', '{{ kubernetes.resource_dir }}/server.key') }}
+        root-ca-file: {{ settings.get('root-ca-file', kubernetes.resource_dir ~ '/ca.crt') }}
+        service-account-private-key-file: {{ settings.get('service-account-private-key-file', kubernetes.resource_dir ~ '/server.key') }}
         other-opts: {{ settings.get('other-opts', '') }}
 
 kube-controller-manager_service:
