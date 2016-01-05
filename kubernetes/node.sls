@@ -29,7 +29,7 @@ kubelet_config:
   file.managed:
     - name: {{ kubernetes.config_dir }}/kubelet.conf
     - source: salt://kubernetes/files/config/kubelet.conf
-    - template: kinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 0644
@@ -72,7 +72,7 @@ kube-proxy_config:
   file.managed:
     - name: {{ kubernetes.config_dir }}/kube-proxy.conf
     - source: salt://kubernetes/files/config/kube-proxy.conf
-    - template: kinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 0644

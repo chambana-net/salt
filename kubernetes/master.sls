@@ -29,7 +29,7 @@ kube-apiserver_config:
   file.managed:
     - name: {{ kubernetes.config_dir }}/kube-apiserver.conf
     - source: salt://kubernetes/files/config/kube-apiserver.conf
-    - template: kinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 0644
@@ -78,7 +78,7 @@ kube-controller-manager_config:
   file.managed:
     - name: {{ kubernetes.config_dir }}/kube-controller-manager.conf
     - source: salt://kubernetes/files/config/kube-controller-manager.conf
-    - template: kinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 0644
@@ -120,7 +120,7 @@ kube-scheduler_config:
   file.managed:
     - name: {{ kubernetes.config_dir }}/kube-scheduler.conf
     - source: salt://kubernetes/files/config/kube-scheduler.conf
-    - template: kinja
+    - template: jinja
     - user: root
     - group: root
     - mode: 0644
