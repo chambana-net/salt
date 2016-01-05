@@ -35,17 +35,17 @@ kube-apiserver_config:
     - mode: 0644
     - makedirs: True
     - defaults:
-        insecure-bind-address: {{ settings.get('insecure-bind-address', '0.0.0.0') }}
-        insecure-port: {{ settings.get('insecure-port', '8080') }}
-        etcd-servers: {{ settings.get('etcd-servers', 'http://127.0.0.1:4001') }}
-        server-cluster-ip-range: {{ settings.get('server-cluster-ip-range', '') }}
-        admission-control: {{ settings.get('admission-control', '') }}
-        service-node-port-range: {{ settings.get('service-node-port-range', '') }}
-        advertise-address: {{ settings.get('advertise-address', '' ) }}
-        client-ca-file: {{ settings.get('client-ca-file', kubernetes.resource_dir ~ '/ca.crt') }}
-        tls-cert-file: {{ settings.get('tls-cert-file', kubernetes.resource_dir ~ '/server.cert') }}
-        tls-private-key-file: {{ settings.get('tls-private-key-file', kubernetes.resource_dir ~ '/server.key') }}
-        other-opts: {{ settings.get('other-opts', '') }}
+        insecure_bind_address: {{ settings.get('insecure_bind_address', '0.0.0.0') }}
+        insecure_port: {{ settings.get('insecure_port', '8080') }}
+        etcd_servers: {{ settings.get('etcd_servers', 'http://127.0.0.1:4001') }}
+        server_cluster_ip_range: {{ settings.get('server_cluster_ip_range', '') }}
+        admission_control: {{ settings.get('admission_control', '') }}
+        service_node_port_range: {{ settings.get('service_node_port_range', '') }}
+        advertise_address: {{ settings.get('advertise_address', '' ) }}
+        client_ca_file: {{ settings.get('client_ca_file', kubernetes.resource_dir ~ '/ca.crt') }}
+        tls_cert_file: {{ settings.get('tls_cert_file', kubernetes.resource_dir ~ '/server.cert') }}
+        tls_private_key_file: {{ settings.get('tls_private_key_file', kubernetes.resource_dir ~ '/server.key') }}
+        other_opts: {{ settings.get('other_opts', '') }}
 
 kube-apiserver_service:
   file.managed:
@@ -85,9 +85,9 @@ kube-controller-manager_config:
     - makedirs: True
     - defaults:
         master: {{ settings.get('master', '127.0.0.1:8080') }}
-        root-ca-file: {{ settings.get('root-ca-file', kubernetes.resource_dir ~ '/ca.crt') }}
-        service-account-private-key-file: {{ settings.get('service-account-private-key-file', kubernetes.resource_dir ~ '/server.key') }}
-        other-opts: {{ settings.get('other-opts', '') }}
+        root_ca_file: {{ settings.get('root_ca_file', kubernetes.resource_dir ~ '/ca.crt') }}
+        service_account_private_key_file: {{ settings.get('service_account_private_key_file', kubernetes.resource_dir ~ '/server.key') }}
+        other_opts: {{ settings.get('other_opts', '') }}
 
 kube-controller-manager_service:
   file.managed:
@@ -127,7 +127,7 @@ kube-scheduler_config:
     - makedirs: True
     - defaults:
         master: {{ settings.get('master', '127.0.0.1:8080') }}
-        other-opts: {{ settings.get('other-opts', '') }}
+        other_opts: {{ settings.get('other_opts', '') }}
 
 kube-scheduler_service:
   file.managed:

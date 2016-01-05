@@ -35,10 +35,10 @@ kubelet_config:
     - mode: 0644
     - makedirs: True
     - defaults:
-        hostname-override: {{ settings.get('hostname-override', '') }}
-        api-servers: {{ settings.get('api-servers', 'http://127.0.0.1:8080') }}
-        cluster-dns: {{ settings.get('cluster-dns', '') }}
-        cluster-domain: {{ settings.get('cluster-domain', '') }}
+        hostname_override: {{ settings.get('hostname_override', '') }}
+        api_servers: {{ settings.get('api_servers', 'http://127.0.0.1:8080') }}
+        cluster_dns: {{ settings.get('cluster_dns', '') }}
+        cluster_domain: {{ settings.get('cluster_domain', '') }}
         config: {{ settings.get('config', '') }}
 
 kubelet_service:
@@ -78,9 +78,9 @@ kube-proxy_config:
     - mode: 0644
     - makedirs: True
     - defaults:
-        hostname-override: {{ settings.get('hostname-override', '') }}
+        hostname_override: {{ settings.get('hostname_override', '') }}
         master: {{ settings.get('master', 'http://127.0.0.1:8080') }}
-        other-opts: {{ settings.get('other-opts', '') }}
+        other_opts: {{ settings.get('other_opts', '') }}
 
 kube-proxy_service:
   file.managed:
