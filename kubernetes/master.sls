@@ -38,7 +38,7 @@ kube-apiserver_config:
         insecure_bind_address: {{ settings.get('insecure_bind_address', '0.0.0.0') }}
         insecure_port: {{ settings.get('insecure_port', '8080') }}
         etcd_servers: {{ settings.get('etcd_servers', 'http://127.0.0.1:4001') }}
-        server_cluster_ip_range: {{ settings.get('server_cluster_ip_range', '') }}
+        service_cluster_ip_range: {{ settings.get('service_cluster_ip_range', '') }}
         admission_control: {{ settings.get('admission_control', '') }}
         service_node_port_range: {{ settings.get('service_node_port_range', '') }}
         advertise_address: {{ settings.get('advertise_address', '' ) }}

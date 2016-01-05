@@ -40,6 +40,7 @@ kubelet_config:
         cluster_dns: {{ settings.get('cluster_dns', '') }}
         cluster_domain: {{ settings.get('cluster_domain', '') }}
         config: {{ settings.get('config', '') }}
+        other_opts: {{ settings.get('otther_opts', '') }}
 
 kubelet_service:
   file.managed:
