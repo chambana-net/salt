@@ -1,12 +1,12 @@
 {% from "kubernetes/map.jinja" import kubernetes with context %}
 {% set settings = salt['pillar.get']('kubernetes:lookup:settings', {}) %}
 
-kube_group:
+kube_master_group:
   group.present:
     - name: kube
     - system: True
 
-kube_user:
+kube_master_user:
   user.present:
     - name: kube
     - full_name: Kubernetes User
@@ -14,7 +14,7 @@ kube_user:
     - gid_from_name: True
     - home: {{ kubernetes.prefix }}
     - require:
-      - group: kube_group
+      - group: kube_master_group
 
 kube-apiserver:
   file.managed:
@@ -60,8 +60,8 @@ kube-apiserver_service:
       - file: kube-apiserver_service
       - file: kube-apiserver_config
       - file: kube-apiserver
-      - user: kube_user
-      - group: kube_group
+      - user: kube_master_user
+      - group: kube_master_group
 
 kube-controller-manager:
   file.managed:
@@ -100,8 +100,8 @@ kube-controller-manager_service:
       - file: kube-controller-manager_service
       - file: kube-controller-manager_config
       - file: kube-controller-manager
-      - user: kube_user
-      - group: kube_group
+      - user: kube_master_user
+      - group: kube_master_group
 
 kube-scheduler:
   file.managed:
@@ -138,8 +138,8 @@ kube-scheduler_service:
       - file: kube-scheduler_service
       - file: kube-scheduler_config
       - file: kube-scheduler
-      - user: kube_user
-      - group: kube_group
+      - user: kube_master_user
+      - group: kube_master_group
 
 kubectl:
   file.managed:

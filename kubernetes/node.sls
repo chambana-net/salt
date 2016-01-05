@@ -1,12 +1,12 @@
 {% from "kubernetes/map.jinja" import kubernetes with context %}
 {% set settings = salt['pillar.get']('kubernetes:lookup:settings', {}) %}
 
-kube_group:
+kube_node_group:
   group.present:
     - name: kube
     - system: True
 
-kube_user:
+kube_node_user:
   user.present:
     - name: kube
     - full_name: Kubernetes User
@@ -14,7 +14,7 @@ kube_user:
     - gid_from_name: True
     - home: {{ kubernetes.prefix }}
     - require:
-      - group: kube_group
+      - group: kube_node_group
 
 kubelet:
   file.managed:
@@ -54,8 +54,8 @@ kubelet_service:
       - file: kubelet_service
       - file: kubelet_config
       - file: kubelet
-      - user: kube_user
-      - group: kube_group
+      - user: kube_node_user
+      - group: kube_node_group
 
 kube-proxy:
   file.managed:
@@ -93,5 +93,5 @@ kube-proxy_service:
       - file: kube-proxy_service
       - file: kube-proxy_config
       - file: kube-proxy
-      - user: kube_user
-      - group: kube_group
+      - user: kube_node_user
+      - group: kube_node_group
