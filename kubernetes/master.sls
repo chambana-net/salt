@@ -39,7 +39,7 @@ kube-apiserver_config:
         server-cluster-ip-range: {{ settings.get('server-cluster-ip-range', '') }}
         admission-control: {{ settings.get('admission-control', '') }}
         service-node-port-range: {{ settings.get('service-node-port-range', '') }}
-        advertise-address: {{ settings.get('advertise-address', '' }}
+        advertise-address: {{ settings.get('advertise-address', '' ) }}
         client-ca-file: {{ settings.get('client-ca-file', '{{ kubernetes.resource_dir }}/ca.crt') }}
         tls-cert-file: {{ settings.get('tls-cert-file', '{{ kubernetes.resource_dir }}/server.cert') }}
         tls-private-key-file: {{ settings.get('tls-private-key-file', '{{ kubernetes.resource_dir }}/server.key') }}
