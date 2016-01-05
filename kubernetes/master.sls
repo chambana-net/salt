@@ -12,13 +12,13 @@ kube_user:
     - full_name: Kubernetes User
     - system: True
     - gid_from_name: True
-    - home: /opt/kubernetes
+    - home: {{ kubernetes.prefix }}
     - require:
       - group: kube_group
 
 kube-apiserver:
   file.managed:
-    - name: /opt/kubernetes/sbin/kube-apiserver
+    - name: {{ kubernetes.prefix }}/sbin/kube-apiserver
     - source: salt://kubernetes/vendor/kube-apiserver
     - user: root
     - group: root
@@ -26,12 +26,24 @@ kube-apiserver:
 
 kube-apiserver_config:
   file.managed:
-    - name: /etc/kubernetes/kube-apiserver.conf
+    - name: {{ kubernetes.config_dir }}/kube-apiserver.conf
     - source: salt://kubernetes/files/config/kube-apiserver.conf
     - template: kinja
     - user: root
     - group: root
     - mode: 0644
+    - defaults:
+        insecure-bind-address: {{ settings.get('insecure-bind-address', 0.0.0.0) }}
+        insecure-port: {{ settings.get('insecure-port', 8080) }}
+        etcd-servers: {{ settings.get('etcd-servers', http://127.0.0.1:4001) }}
+        server-cluster-ip-range: {{ settings.server-cluster-ip-range }}
+        admission-control: {{ settings.get('admission-control', '') }}
+        service-node-port-range: {{ settings.get('service-node-port-range', '') }}
+        advertise-address: {{ settings.get('advertise-address', '' }}
+        client-ca-file: {{ settings.get('client-ca-file', {{ kubernetes.resource_dir }}/ca.crt) }}
+        tls-cert-file: {{ settings.get('tls-cert-file', {{ kubernetes.resource_dir }}/server.cert) }}
+        tls-private-key-file: {{ settings.get('tls-private-key-file', {{ kubernetes.resource_dir }}/server.key) }}
+        other-opts: {{ settings.get('other-opts', '') }}
 
 kube-apiserver_service:
   file.managed:
@@ -53,7 +65,7 @@ kube-apiserver_service:
 
 kube-controller-manager:
   file.managed:
-    - name: /opt/kubernetes/sbin/kube-controller-manager
+    - name: {{ kubernetes.prefix }}/sbin/kube-controller-manager
     - source: salt://kubernetes/vendor/kube-controller-manager
     - user: root
     - group: root
@@ -61,12 +73,17 @@ kube-controller-manager:
 
 kube-controller-manager_config:
   file.managed:
-    - name: /etc/kubernetes/kube-controller-manager.conf
+    - name: {{ kubernetes.config_dir }}/kube-controller-manager.conf
     - source: salt://kubernetes/files/config/kube-controller-manager.conf
     - template: kinja
     - user: root
     - group: root
     - mode: 0644
+    - defaults:
+        master: {{ settings.get('master', 127.0.0.1:8080) }}
+        root-ca-file: {{ settings.get('root-ca-file', {{ kubernetes.resource_dir }}/ca.crt) }}
+        service-account-private-key-file: {{ settings.get('service-account-private-key-file', {{ kubernetes.resource_dir }}/server.key) }}
+        other-opts: {{ settings.get('other-opts', '') }}
 
 kube-controller-manager_service:
   file.managed:
@@ -86,26 +103,9 @@ kube-controller-manager_service:
       - user: kube_user
       - group: kube_group
 
-kubectl:
-  file.managed:
-    - name: /opt/kubernetes/bin/kubectl
-    - source: salt://kubernetes/vendor/kubectl
-    - user: root
-    - group: root
-    - mode: 0750
-
-kubectl_config:
-  file.managed:
-    - name: /etc/kubernetes/kubectl.conf
-    - source: salt://kubernetes/files/config/kubectl.conf
-    - template: kinja
-    - user: root
-    - group: root
-    - mode: 0644
-
 kube-scheduler:
   file.managed:
-    - name: /opt/kubernetes/sbin/kube-scheduler
+    - name: {{ kubernetes.prefix }}/sbin/kube-scheduler
     - source: salt://kubernetes/vendor/kube-scheduler
     - user: root
     - group: root
@@ -113,12 +113,15 @@ kube-scheduler:
 
 kube-scheduler_config:
   file.managed:
-    - name: /etc/kubernetes/kube-scheduler.conf
+    - name: {{ kubernetes.config_dir }}/kube-scheduler.conf
     - source: salt://kubernetes/files/config/kube-scheduler.conf
     - template: kinja
     - user: root
     - group: root
     - mode: 0644
+    - defaults:
+        master: {{ settings.get('master', 127.0.0.1:8080) }}
+        other-opts: {{ settings.get('other-opts', '') }}
 
 kube-scheduler_service:
   file.managed:
@@ -137,3 +140,21 @@ kube-scheduler_service:
       - file: kube-scheduler
       - user: kube_user
       - group: kube_group
+
+kubectl:
+  file.managed:
+    - name: {{ kubernetes.prefix }}/bin/kubectl
+    - source: salt://kubernetes/vendor/kubectl
+    - user: root
+    - group: root
+    - mode: 0750
+
+kube_profile:
+  file.managed:
+    - name: /etc/profile.d/kubectl.sh
+    - source: salt://kubernetes/files/kubectl.sh
+    - user: root
+    - group: root
+    - mode: 0644
+    - require:
+      - file: kubectl
