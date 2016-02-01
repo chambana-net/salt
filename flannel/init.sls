@@ -1,3 +1,4 @@
+{% from "flannel/map.jinja" import flannel with context %}
 {% set flannel_version = "0.5.5" -%}
 
 include:
