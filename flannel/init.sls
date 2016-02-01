@@ -1,33 +1,43 @@
+{% set flannel_version = "0.5.5" -%}
+
 include:
   - etcd
 
-flannel_packages:
-  pkg.installed:
-    - pkgs: 
-      - linux-libc-dev
-      - golang
-      - gcc
-
 flannel_install:
-  git.latest:
-    - name: https://github.com/coreos/flannel
-    - rev: v0.5.5
-    - target: /usr/local/src/flannel
-    - require:
-      - pkg: flannel_packages
-
-  cmd.run:
-    - cwd: /usr/local/src/flannel
-    - name: ./build
-    - require:
-      - pkg: flannel_packages
+  archive.extracted:
+    - name: {{ flannel.tmp_dir }}
+    - source: https://github.com/coreos/flannel/releases/download/v{{ flannel_version }}/flannel-{{ flannel_version }}-linux-amd64.tar.gz
+    - source_hash: sha1=fab60fdf23b029fa39badc008fe951bce5046caa
+    - archive_format: tar 
+    - tar_options: v
+    - user: nobody
+    - group: nobody
+    - keep: False
+    - if_missing: {{ flannel.config_dir }}/.flannel_{{ flannel_version }}
 
   file.copy:
-    - name: /usr/local/bin/flanneld
-    - source: /usr/local/src/flannel/bin/flanneld
+    - name: {{ flannel.prefix }}/bin/flanneld
+    - source: {{ flannel.tmp_dir }}/flannel-{{ flannel_version }}/flanneld
     - user: root
     - group: root
     - mode: 0775
+    - force: True
+    - onchanges:
+      - archive: flannel_install
+
+flannel_install_version:
+  file.touch:
+    - name: {{ flannel.config_dir }}/.flannel_{{ flannel_version }}
+    - makedirs: True
+    - require:
+      - archive: flannel_install
+      - file: flannel_install
+
+flannel_install_cleanup:
+  file.absent:
+    - name: {{ flannel.tmp_dir }}/flannel-{{ flannel_version }}
+    - require:
+      - file: flannel_install
 
 flannel_config:
   etcd.set:
