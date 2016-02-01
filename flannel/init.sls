@@ -59,6 +59,7 @@ flannel_service:
   service.running:
     - name: flannel
     - enable: True
-    - require:
+    - watch:
+      - file: flannel_install
       - file: flannel_service
       - etcd: flannel_config
