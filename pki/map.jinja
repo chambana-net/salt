@@ -1,7 +1,7 @@
 {% set pki = salt['grains.filter_by']({
     'Debian': {
         'dir': '/usr/local/share/ca-certificates',
-        'cert': '/usr/local/share/ca-certificates/cluster.crt'
+        'cert': '/usr/local/share/ca-certificates/cluster.crt',
         'ca_minion': 'salt-minion',
         'ca_signing_policies': '/etc/salt/minion.d/signing_policies.conf',
         'ca_dir': '/etc/pki',
