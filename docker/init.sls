@@ -13,7 +13,8 @@ docker:
     - user: root
     - group: root
     - mode: 0644
-    - replace: true
+    - replace: True
+    - makedirs: True
     - require:
       - sls: etcd
 
