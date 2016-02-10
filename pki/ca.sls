@@ -62,6 +62,7 @@ pki_ca_key:
 
 pki_ca_cert:
   x509.certificate_managed:
+    - name: {{ pki.ca_cert }}
     - signing_private_key: {{ pki.ca_key }}
     - CN: {{ settings.get('cn', 'chambana.net') }}
     - C: {{ settings.get('country', 'US') }}
