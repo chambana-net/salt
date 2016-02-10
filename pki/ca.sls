@@ -78,7 +78,7 @@ pki_ca_cert:
       - pkg: pki
       - x509: pki_ca_key
 
-pki_ca_pem_entries:
+mine.send:
   module.run:
     - func: x509.get_pem_entries
     - kwargs:
