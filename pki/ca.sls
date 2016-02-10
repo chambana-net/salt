@@ -9,6 +9,11 @@
 {% endif -%}
 {% endfor %}
 
+pki:
+  pkgs.installed:
+    - pkgs:
+      - python-m2crypto
+
 pki_ca_minion:
   service.running:
     - name: {{ pki.ca_minion }}
@@ -52,6 +57,7 @@ pki_ca_key:
     - bits: 4096
     - backup: True
     - require:
+      - pkg: pki
       - file: pki_ca_dir
 
 pki_ca_cert:
@@ -69,6 +75,7 @@ pki_ca_cert:
     - days_remaining: 0
     - backup: True
     - require:
+      - pkg: pki
       - x509: pki_ca_key
 
 pki_ca_pem_entries:
