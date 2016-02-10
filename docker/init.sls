@@ -8,7 +8,7 @@ docker:
       - python-docker
 
   file.managed:
-    - name: /etc/systemd/system/docker.d/mod.conf
+    - name: /etc/systemd/system/docker.service.d/mod.conf
     - source: salt://docker/files/mod.conf
     - user: root
     - group: root
