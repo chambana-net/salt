@@ -10,7 +10,7 @@
 {% endfor %}
 
 pki:
-  pkgs.installed:
+  pkg.installed:
     - pkgs:
       - python-m2crypto
 
