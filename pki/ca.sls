@@ -1,5 +1,13 @@
 {% from "pki/map.jinja" import pki with context %}
 {% set settings = salt['pillar.get']('pki:lookup:settings', {}) %}
+{% set peers = salt['pillar.get']('cluster:peers', {}) %}
+
+{% set peer_string = [] -%}
+
+{% for host,_ in peers.items() -%}
+{% if peer_string.append( host ) -%}
+{% endif -%}
+{% endfor %}
 
 pki_ca_minion:
   service.running:
@@ -11,7 +19,17 @@ pki_ca_minion:
 pki_ca_signing_policies:
   file.managed:
     - name: {{ pki.ca_signing_policies }}
-    - source: salt://signing_policies.conf
+    - source: salt://pki/files/signing_policies.conf
+    - template: jinja
+    - defaults:
+        minions: {{ peer_string|join(',') }}
+        ca_key: {{ pki.ca_key }}
+        ca_cert: {{ pki.ca_cert }}
+        country: {{ settings.get('country', 'US') }}
+        state: {{ settings.get('state', 'IL') }}
+        locality: {{ settings.get('locality', 'Urbana') }}
+        days_valid: 90
+        ca_dir_issued_certs: {{ pki.ca_dir_issued_certs }}
 
 pki_ca_dir:
   file.directory: 
