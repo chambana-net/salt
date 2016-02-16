@@ -8,4 +8,4 @@ pki_dir:
 pki_cert:
   x509.pem_managed:
     - name: {{ pki.cert }}
-    - text: {{ salt['mine.get']('riker', 'x509.get_pem_entries')['ca']['/etc/pki/ca.crt']|replace('\n', '') }}
+    - text: {{ salt['mine.get']('riker', 'x509.get_pem_entries')['riker']['/etc/pki/ca.crt']|replace('\n', '') }}
