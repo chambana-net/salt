@@ -61,6 +61,9 @@ fortune-motd:
     - group: root
     - mode: 644
     - replace: true
+    - template: jinja
+    - defaults:
+        fortune_bin: {{ bootstrap.fortune_bin }}
 
 skel:
   file.recurse:
