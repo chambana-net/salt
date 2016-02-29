@@ -1,3 +1,0 @@
-Package: *
-Pin: release o=Debian,n={{ dist }}-updates
-Pin-Priority: 990

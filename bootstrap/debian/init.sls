@@ -46,16 +46,6 @@ sources_list_updates:
     - name: deb http://httpredir.debian.org/debian {{ settings.get('dist', 'jessie') }}-updates {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/distro.list
 
-  file.managed:
-    - name: /etc/apt/preferences.d/updates
-    - source: salt://bootstrap/debian/files/apt/preferences.d/updates
-    - template: jinja
-    - defaults:
-        dist: {{ settings.get('dist', 'jessie') }}
-    - user: root
-    - group: root
-    - mode: 644
-
 sources_list_updates_src:
   pkgrepo.managed:
     - humanname: {{ settings.get('dist', 'jessie') }} updates sources
@@ -92,10 +82,21 @@ sources_list_experimental:
     - name: deb http://httpredir.debian.org/debian experimental {{ settings.get('components', 'main') }}
     - file: /etc/apt/sources.list.d/experimental.list
 
-apt_preferences_defaultrelease:
+apt_conf_defaultrelease:
   file.managed:
     - name: /etc/apt/apt.conf.d/99default-release
     - source: salt://bootstrap/debian/files/apt/apt.conf.d/99default-release
+    - template: jinja
+    - defaults:
+        dist: {{ settings.get('dist', 'jessie') }}
+    - user: root
+    - group: root
+    - mode: 644
+
+apt_preferences_pinning:
+  file.managed:
+    - name: /etc/apt/preferences.d/distro
+    - source: salt://bootstrap/debian/files/apt/preferences.d/distro
     - template: jinja
     - defaults:
         dist: {{ settings.get('dist', 'jessie') }}
