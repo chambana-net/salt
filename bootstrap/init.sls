@@ -23,6 +23,7 @@ utilities:
       - wget
       - rsync
       - etckeeper
+      - curl
 
 issue:
   file.managed:
