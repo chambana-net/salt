@@ -66,7 +66,7 @@ fortune-motd:
     - defaults:
         fortune_bin: {{ bootstrap.fortune_bin }}
 
-fortune-motd:
+fortune-motd_timer:
   file.managed:
     - name: /etc/systemd/system/fortune-motd.timer
     - source: salt://bootstrap/files/fortune-motd.timer
