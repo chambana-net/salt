@@ -66,6 +66,14 @@ fortune-motd:
     - defaults:
         fortune_bin: {{ bootstrap.fortune_bin }}
 
+fortune-motd:
+  file.managed:
+    - name: /etc/systemd/system/fortune-motd.timer
+    - source: salt://bootstrap/files/fortune-motd.timer
+    - user: root
+    - group: root
+    - mode: 644
+
 skel:
   file.recurse:
     - name: {{ bootstrap.skel }}
