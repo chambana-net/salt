@@ -3,7 +3,7 @@ Pin: release o=Debian,n={{ dist }}-updates
 Pin-Priority: 990
 
 Package: *
-Pin: release n=jessie-backports
+Pin: release n={{ dist }}-backports
 Pin-Priority: 600
 
 Package: *
