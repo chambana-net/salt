@@ -1,0 +1,10 @@
+[Unit]
+Description=Run archaudit.sh script
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/archaudit.sh
+
+[Install]
+WantedBy=multi-user.target

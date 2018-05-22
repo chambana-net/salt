@@ -12,11 +12,18 @@ export PAGER="less"
 export HISTFILESIZE=3000 # the bash history should save 3000 commands
 export HISTCONTROL=ignoreboth #no duplicates in history, commands w/ preceding space get ignored
 export PATH=$PATH:/usr/local/bin:$HOME/bin:/sbin:/usr/sbin:/usr/local/sbin
+# set vi mode
+set -o vi
 # append to the history file, don't overwrite it
 shopt -s histappend
+# make multi-line commands end up in the same history entry
+shopt -s cmdhist
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+# smart history search
+bind '"\e[A": history-search-backward'
+bind '"\e[B": history-search-forward'
 
 #PROMPTS
 # set variable identifying the chroot you work in (used in the prompt below)
@@ -49,7 +56,7 @@ fi
 function imc_prompt_command () {
     local rts=$?
 	  local u="\u@\h"
-    local w=$(echo "${PWD/#$HOME/~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
+    local w=$(echo "${PWD/#$HOME/\~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
     # pwd max length L, prefix shortened pwd with m
     local L=45 m='<'
     [ ${#w} -gt $L ] && { local n=$((${#w} - $L + ${#m}))
@@ -69,7 +76,7 @@ function imc_prompt_command () {
 function imc_color_prompt_command () {
     local rts=$?
 	  local u="\[\033[1;36m\]\u\[\033[1;30m\]@\[\033[0;36m\]\h\[\033[0m\]"
-    local w=$(echo "${PWD/#$HOME/~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
+    local w=$(echo "${PWD/#$HOME/\~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
     # pwd max length L, prefix shortened pwd with m
     local L=45 m='<'
     [ ${#w} -gt $L ] && { local n=$((${#w} - $L + ${#m}))
@@ -93,7 +100,7 @@ function imc_color_prompt_command () {
 function acorn_prompt_command () {
     local rts=$?
 	  local u="\h"
-    local w=$(echo "${PWD/#$HOME/~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
+    local w=$(echo "${PWD/#$HOME/\~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
     # pwd max length L, prefix shortened pwd with m
     local L=45 m='<'
     [ ${#w} -gt $L ] && { local n=$((${#w} - $L + ${#m}))
@@ -113,7 +120,7 @@ function acorn_prompt_command () {
 function acorn_color_prompt_command () {
     local rts=$?
 	  local u="\[\033[0;31m\]\h\[\033[0m\]"
-    local w=$(echo "${PWD/#$HOME/~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
+    local w=$(echo "${PWD/#$HOME/\~}" | sed 's/.*\/\(.*\/.*\/.*\)$/\1/') # pwd max depth 3
     # pwd max length L, prefix shortened pwd with m
     local L=45 m='<'
     [ ${#w} -gt $L ] && { local n=$((${#w} - $L + ${#m}))
@@ -132,6 +139,11 @@ function acorn_color_prompt_command () {
         ;;                                             
     esac                                               
 }                                                      
+
+#VTE workaround
+if [ $TERMINIX_ID ] || [ $VTE_VERSION ]; then
+  source /etc/profile.d/vte.sh
+fi
 
 # Actually set prompts
 if [[ ${EUID} == 0 ]] ; then
@@ -163,7 +175,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)" && export LESS=' -R '
 
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -193,3 +205,10 @@ if [ -x /usr/lib/command-not-found -o -x /usr/share/command-not-found ]; then
 		fi
 	}
 fi
+
+#Local environment
+if [ -f ~/.bash_local ]; then
+    . ~/.bash_local
+fi
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

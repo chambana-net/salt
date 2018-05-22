@@ -1,0 +1,9 @@
+[Unit]
+Description=Run archaudit.sh daily
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target

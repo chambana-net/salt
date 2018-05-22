@@ -8,4 +8,13 @@
         'skel': '/etc/skel',
         'bash_bashrc': '/etc/bash.bashrc',
     },
+    'Arch': {
+        'issue': '/etc/issue',
+        'issue_net': '/etc/issue.net',
+        'motd': '/etc/motd',
+        'fortunes': '/usr/share/fortune',
+        'fortune_bin': '/usr/bin/fortune',
+        'skel': '/etc/skel',
+        'bash_bashrc': '/etc/bash.bashrc',
+    },
 }, merge=salt['pillar.get']('bootstrap:lookup')) %}
