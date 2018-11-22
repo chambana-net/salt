@@ -41,11 +41,12 @@ issue_net:
     - group: root
     - mode: 644
 
-fortunes:
+fortunes_pkg:
   pkg.installed:
     - pkg:
       - fortune-mod
 
+fortunes:
   file.recurse:
     - name: {{ bootstrap.fortunes }}
     - source: {{ settings.get('fortunes', 'salt://bootstrap/files/fortunes') }}
@@ -85,7 +86,7 @@ skel:
 
 bash_bashrc:
   file.managed:
-    - name: {{ bootstrap.bash_bashrc }}
+    jk- name: {{ bootstrap.bash_bashrc }}
     - source: {{ settings.get('bash_bashrc', 'salt://bootstrap/files/skel/.bashrc') }}
     - user: root
     - group: root
