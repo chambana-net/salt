@@ -77,14 +77,14 @@ pacserve_service:
     - name: pacserve
     - enable: True
     - watch:
-      - pkg: pacserve
+      - pkg: pacserve_pkg
       
 pacserve_ports:
   service.running:
     - name: pacserve-ports
     - enable: True
     - watch:
-      - pkg: pacserve
+      - pkg: pacserve_pkg
 
 pacserve_conf:
   cmd.run:
@@ -102,7 +102,7 @@ reflector_service:
     - name: reflector
     - enable: True
     - watch:
-      - pkg: reflector
+      - pkg: reflector_pkg
     - require:
       - file: reflector_service_systemd
 
@@ -111,7 +111,7 @@ reflector_timer:
     - name: reflector.timer
     - enable: True
     - watch:
-      - pkg: reflector
+      - pkg: reflector_pkg
     - require:
       - file: reflector_timer_systemd
 
