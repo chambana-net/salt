@@ -85,7 +85,7 @@ skel:
 
 bash_bashrc:
   file.managed:
-    jk- name: {{ bootstrap.bash_bashrc }}
+    - name: {{ bootstrap.bash_bashrc }}
     - source: {{ settings.get('bash_bashrc', 'salt://bootstrap/files/skel/.bashrc') }}
     - user: root
     - group: root
