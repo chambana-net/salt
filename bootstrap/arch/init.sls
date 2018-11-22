@@ -87,6 +87,14 @@ pacserve_ports:
     - require:
       - pkg: arch_packages
 
+pacserve_conf:
+  cmd:
+    - name: pacman.conf-insert_pacserve
+    - watch:
+      - file: pacserve
+    - require:
+      - pkg: arch_packages
+
 reflector_service:
   service.running:
     - name: reflector
