@@ -61,13 +61,16 @@ archaudit_script:
 arch_packages:
   pkg.installed:
     - pkgs:
-      - pacserve
-      - reflector
       - arch-audit
       - git
       - wget
       - rsync
       - neovim
+
+pacserve_pkg:
+  pkg.installed:
+    - pkg:
+      - pacserve
 
 pacserve_service:
   service.running:
@@ -75,8 +78,6 @@ pacserve_service:
     - enable: True
     - watch:
       - pkg: pacserve
-    - require:
-      - pkg: arch_packages
       
 pacserve_ports:
   service.running:
@@ -84,16 +85,17 @@ pacserve_ports:
     - enable: True
     - watch:
       - pkg: pacserve
-    - require:
-      - pkg: arch_packages
 
 pacserve_conf:
   cmd.run:
     - name: pacman.conf-insert_pacserve
     - onchanges:
       - file: pacman_conf
-    - require:
-      - pkg: arch_packages
+
+reflector_pkg:
+  pkg.installed:
+    - pkg:
+      - reflector
 
 reflector_service:
   service.running:
@@ -102,7 +104,6 @@ reflector_service:
     - watch:
       - pkg: reflector
     - require:
-      - pkg: arch_packages
       - file: reflector_service_systemd
 
 reflector_timer:
@@ -112,7 +113,6 @@ reflector_timer:
     - watch:
       - pkg: reflector
     - require:
-      - pkg: arch_packages
       - file: reflector_timer_systemd
 
 archaudit_service:
