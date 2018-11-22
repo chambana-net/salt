@@ -88,10 +88,10 @@ pacserve_ports:
       - pkg: arch_packages
 
 pacserve_conf:
-  cmd:
+  cmd.run:
     - name: pacman.conf-insert_pacserve
-    - watch:
-      - file: pacserve
+    - onchanges:
+      - file: pacman_conf
     - require:
       - pkg: arch_packages
 
