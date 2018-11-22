@@ -69,7 +69,7 @@ arch_packages:
 
 pacserve_pkg:
   pkg.installed:
-    - pkg:
+    - pkgs:
       - pacserve
 
 pacserve_service:
@@ -94,7 +94,7 @@ pacserve_conf:
 
 reflector_pkg:
   pkg.installed:
-    - pkg:
+    - pkgs:
       - reflector
 
 reflector_service:
