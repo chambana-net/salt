@@ -23,6 +23,7 @@ utilities:
       - rsync
       - etckeeper
       - curl
+      - fortune-mod
 
 issue:
   file.managed:
@@ -39,11 +40,6 @@ issue_net:
     - user: root
     - group: root
     - mode: 644
-
-fortunes_pkg:
-  pkg.installed:
-    - pkg:
-      - fortune-mod
 
 fortunes:
   file.recurse:
