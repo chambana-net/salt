@@ -18,6 +18,37 @@ makepkg_conf:
     - group: root
     - mode: 644
 
+arch_packages:
+  pkg.installed:
+    - pkgs:
+      - git
+      - wget
+      - rsync
+      - neovim
+
+pacserve_pkg:
+  pkg.installed:
+    - pkgs:
+      - pacserve
+
+pacserve_service:
+  service.enabled:
+    - name: pacserve
+    - require:
+      - pkg: pacserve_pkg
+      
+pacserve_ports:
+  service.enabled:
+    - name: pacserve-ports
+    - require:
+      - pkg: pacserve_pkg
+
+pacserve_conf:
+  cmd.run:
+    - name: pacman.conf-insert_pacserve
+    - onchanges:
+      - file: pacman_conf
+
 reflector_service_systemd:
   file.managed:
     - name: /etc/systemd/system/reflector.service
@@ -33,6 +64,27 @@ reflector_timer_systemd:
     - user: root
     - group: root
     - mode: 644
+
+reflector_pkg:
+  pkg.installed:
+    - pkgs:
+      - reflector
+
+reflector_service:
+  service.enabled:
+    - name: reflector
+    - require:
+      - pkg: reflector_pkg
+      - file: reflector_service_systemd
+
+reflector_timer:
+  service.running:
+    - name: reflector.timer
+    - enable: True
+    - watch:
+      - pkg: reflector_pkg
+    - require:
+      - file: reflector_timer_systemd
 
 archaudit_service_systemd:
   file.managed:
@@ -58,69 +110,16 @@ archaudit_script:
     - group: root
     - mode: 755
 
-arch_packages:
+archaudit_pkg:
   pkg.installed:
     - pkgs:
       - arch-audit
-      - git
-      - wget
-      - rsync
-      - neovim
-
-pacserve_pkg:
-  pkg.installed:
-    - pkgs:
-      - pacserve
-
-pacserve_service:
-  service.running:
-    - name: pacserve
-    - enable: True
-    - watch:
-      - pkg: pacserve_pkg
-      
-pacserve_ports:
-  service.running:
-    - name: pacserve-ports
-    - enable: True
-    - watch:
-      - pkg: pacserve_pkg
-
-pacserve_conf:
-  cmd.run:
-    - name: pacman.conf-insert_pacserve
-    - onchanges:
-      - file: pacman_conf
-
-reflector_pkg:
-  pkg.installed:
-    - pkgs:
-      - reflector
-
-reflector_service:
-  service.running:
-    - name: reflector
-    - enable: True
-    - watch:
-      - pkg: reflector_pkg
-    - require:
-      - file: reflector_service_systemd
-
-reflector_timer:
-  service.running:
-    - name: reflector.timer
-    - enable: True
-    - watch:
-      - pkg: reflector_pkg
-    - require:
-      - file: reflector_timer_systemd
 
 archaudit_service:
-  service.running:
+  service.enabled:
     - name: archaudit
-    - enable: True
     - require:
-      - pkg: arch_packages
+      - pkg: archaudit_pkg
       - file: archaudit_service_systemd
       - file: archaudit_script
 
@@ -129,6 +128,6 @@ archaudit_timer:
     - name: archaudit.timer
     - enable: True
     - require:
-      - pkg: arch_packages
+      - pkg: archaudit_pkg
       - file: archaudit_timer_systemd
       - file: archaudit_script
