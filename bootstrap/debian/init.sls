@@ -3,6 +3,7 @@
 apt_packages:
   pkg.installed:
     - pkgs:
+      - vim
       - python-apt
       - aptitude
       - debconf-utils

@@ -15,7 +15,6 @@ include:
 utilities:
   pkg.installed:
     - pkgs:
-      - vim
       - screen
       - less
       - sudo
