@@ -1,0 +1,11 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+
+Debian:
+  dist: stretch
+  components: main
+  fortunes: /usr/share/games/fortunes
+  fortune_bin: /usr/games/fortune
+Arch:
+  fortunes: /usr/share//fortune
+  fortune_bin: /usr/bin/fortune

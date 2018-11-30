@@ -1,15 +1,21 @@
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
 {% from "bootstrap/map.jinja" import bootstrap with context %}
-{% set settings = salt['pillar.get']('bootstrap:lookup:settings', {}) %}
 
 {% if grains['os'] == 'Arch'%}
 include:
-  - bootstrap.arch
+  - bootstrap.pacman
+  - bootstrap.reflector
+  - bootstrap.pacserve
+  - bootstrap.archaudit
+  - bootstrap.fortune
+  - bootstrap.neovim
 {% elif grains['os'] == 'Debian'%}
 include:
-  - bootstrap.debian
-{% elif grains['os'] == 'RedHat'%}
-include:
-  - bootstrap.fedora
+  - bootstrap.apt
+  - bootstrap.fortune
+  - bootstrap.neovim
 {% endif %}
 
 utilities:
@@ -23,12 +29,10 @@ utilities:
       - rsync
       - etckeeper
       - curl
-      - fortune-mod
-
 issue:
   file.managed:
     - name: {{ bootstrap.issue }}
-    - source: {{ settings.get('issue', 'salt://bootstrap/files/issue') }}
+    - source: salt://bootstrap/files/issue
     - user: root
     - group: root
     - mode: 644
@@ -36,44 +40,20 @@ issue:
 issue_net:
   file.managed:
     - name: {{ bootstrap.issue_net }}
-    - source: {{ settings.get('issue_net', 'salt://bootstrap/files/issue.net') }}
+    - source: salt://bootstrap/files/issue.net
     - user: root
     - group: root
     - mode: 644
 
-fortunes:
-  file.recurse:
-    - name: {{ bootstrap.fortunes }}
-    - source: {{ settings.get('fortunes', 'salt://bootstrap/files/fortunes') }}
-    - user: root
-    - group: root
-    - file_mode: 644
-    - dir_mode: 755
-
-fortune-motd:
-  file.managed:
-    - name: /etc/systemd/system/fortune-motd.service
-    - source: salt://bootstrap/files/fortune-motd.service
-    - user: root
-    - group: root
-    - mode: 644
-    - replace: true
-    - template: jinja
-    - defaults:
-        fortune_bin: {{ bootstrap.fortune_bin }}
-
-fortune-motd_timer:
-  file.managed:
-    - name: /etc/systemd/system/fortune-motd.timer
-    - source: salt://bootstrap/files/fortune-motd.timer
-    - user: root
-    - group: root
-    - mode: 644
+dotfiles:
+  git.latest:
+    - name: https://github.com/jheretic/dotfiles.git
+    - target: /tmp/dotfiles
 
 skel:
   file.recurse:
     - name: {{ bootstrap.skel }}
-    - source: {{ settings.get('skel', 'salt://bootstrap/files/skel') }}
+    - source: /tmp/dotfiles/files
     - user: root
     - group: root
     - file_mode: 644
@@ -82,7 +62,7 @@ skel:
 bash_bashrc:
   file.managed:
     - name: {{ bootstrap.bash_bashrc }}
-    - source: {{ settings.get('bash_bashrc', 'salt://bootstrap/files/skel/.bashrc') }}
+    - source: /tmp/dotfiles/files/.bashrc
     - user: root
     - group: root
     - mode: 644

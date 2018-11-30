@@ -1,20 +1,17 @@
-{% set bootstrap = salt['grains.filter_by']({
-    'Debian': {
-        'issue': '/etc/issue',
-        'issue_net': '/etc/issue.net',
-        'motd': '/etc/motd',
-        'fortunes': '/usr/share/games/fortunes',
-        'fortune_bin': '/usr/games/fortune',
-        'skel': '/etc/skel',
-        'bash_bashrc': '/etc/bash.bashrc',
-    },
-    'Arch': {
-        'issue': '/etc/issue',
-        'issue_net': '/etc/issue.net',
-        'motd': '/etc/motd',
-        'fortunes': '/usr/share/fortune',
-        'fortune_bin': '/usr/bin/fortune',
-        'skel': '/etc/skel',
-        'bash_bashrc': '/etc/bash.bashrc',
-    },
-}, merge=salt['pillar.get']('bootstrap:lookup')) %}
+{# vi: set ft=jinja: #}
+
+{% import_yaml "bootstrap/defaults.yaml" as defaults %}
+{% import_yaml "bootstrap/osfamilymap.yaml" as osfamilymap %}
+
+{# merge OS-specific defaults #}
+{% set osfamily = salt['grains.filter_by'](osfamilymap, grain='os_family') or{} %}
+{% do defaults.update(osfamily) %}
+
+{# merge overrides #}
+{% set lookup = salt['pillar.get']('bootstrap:lookup', default={}, merge=True) %}
+{% do defaults.update(lookup) %}
+
+{# merge all #}
+{% set bootstrap = salt['pillar.get']('bootstrap', default=defaults, merge=true) %}
+
+
