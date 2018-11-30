@@ -17,14 +17,14 @@ neovim_scripts:
     - file_mode: 755
 
 {% for alias in ["edit", "vedit", "vi", "vim"] %}
-neovim_{{ alias }}:
+neovim_ln_{{ alias }}:
   file.symlink:
     - name: /usr/bin/{{ alias }}
     - target: /usr/bin/nvim
 {% endfor %}
 
 {% for man in ["vi", "vim", "vimdiff"] %}
-neovim_{{ man }}:
+neovim_man_{{ man }}:
   file.symlink:
     - name: /usr/share/man/man1/{{ man }}.1.gz
     - target: /usr/share/man/man1/nvim.1.gz
