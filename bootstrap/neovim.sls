@@ -5,7 +5,7 @@
 
 neovim_pkg:
   pkg.installed:
-    pkgs:
+    - pkgs:
       - neovim
 
 neovim_scripts:
