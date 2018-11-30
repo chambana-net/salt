@@ -45,15 +45,10 @@ issue_net:
     - group: root
     - mode: 644
 
-dotfiles:
-  git.latest:
-    - name: https://github.com/jheretic/dotfiles.git
-    - target: /tmp/dotfiles
-
 skel:
   file.recurse:
     - name: {{ bootstrap.skel }}
-    - source: /tmp/dotfiles/files
+    - source: salt://dotfiles/files
     - user: root
     - group: root
     - file_mode: 644
@@ -62,7 +57,7 @@ skel:
 bash_bashrc:
   file.managed:
     - name: {{ bootstrap.bash_bashrc }}
-    - source: /tmp/dotfiles/files/.bashrc
+    - source: salt://dotfiles/files/.bashrc
     - user: root
     - group: root
     - mode: 644
