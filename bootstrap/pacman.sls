@@ -10,12 +10,6 @@ pacman_conf:
     - user: root
     - group: root
     - mode: 644
-    - require_in:
-      - pkg: utilities
-      - pkg: archaudit_pkg
-      - pkg: pacserve_pkg
-      - pkg: reflector_pkg
-      - pkg: neovim_pkg
 
 makepkg_conf:
   file.managed:
