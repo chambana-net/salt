@@ -39,14 +39,14 @@ fortune_timer_systemd:
 
 fortune_service:
   service.enabled:
-    - name: fortune-mod
+    - name: fortune-motd
     - require:
       - pkg: fortune_pkg
       - file: fortune_service_systemd
 
 fortune_timer:
   service.running:
-    - name: fortune-mod.timer
+    - name: fortune-motd.timer
     - enable: True
     - require:
       - pkg: fortune_pkg
