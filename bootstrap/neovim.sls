@@ -21,6 +21,7 @@ neovim_ln_{{ alias }}:
   file.symlink:
     - name: /usr/bin/{{ alias }}
     - target: /usr/bin/nvim
+    - force: true
 {% endfor %}
 
 {% for man in ["vi", "vim", "vimdiff"] %}
@@ -28,4 +29,5 @@ neovim_man_{{ man }}:
   file.symlink:
     - name: /usr/share/man/man1/{{ man }}.1.gz
     - target: /usr/share/man/man1/nvim.1.gz
+    - force: true
 {% endfor %}
