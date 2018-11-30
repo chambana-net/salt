@@ -7,4 +7,4 @@ motd: /etc/motd
 fortunes: /usr/share/games/fortunes
 fortune_bin: /usr/games/fortune
 skel: /etc/skel
-bash_bashrc': /etc/bash.bashrc
+bash_bashrc: /etc/bash.bashrc
