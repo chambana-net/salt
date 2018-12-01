@@ -4,12 +4,12 @@
 {% import_yaml "bootstrap/osfamilymap.yaml" as osfamilymap %}
 
 {# merge OS-specific defaults #}
-{% set osfamily = salt['grains.filter_by'](osfamilymap, grain='os_family') or{} %}
-{% do defaults.update(osfamily) %}
+{% set osfamily = salt['grains.filter_by'](osfamilymap, grain='os_family', merge=defaults.bootstrap) or{} %}
+{% do defaults.bootstrap.update(osfamily) %}
 
 {# merge overrides #}
 {% set lookup = salt['pillar.get']('bootstrap:lookup', default={}, merge=True) %}
-{% do defaults.update(lookup) %}
+{% do defaults.bootstrap.update(lookup) %}
 
 {# merge all #}
-{% set bootstrap = salt['pillar.get']('bootstrap', default=defaults, merge=true) %}
+{% set bootstrap = salt['pillar.get']('bootstrap', default=defaults['bootstrap'], merge=true) %}
