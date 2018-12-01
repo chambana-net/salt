@@ -12,6 +12,4 @@
 {% do defaults.update(lookup) %}
 
 {# merge all #}
-{% set bootstrap = salt['pillar.get']('bootstrap', default=defaults, merge=true) %}
-
-
+{# {% set bootstrap = salt['pillar.get']('bootstrap', default=defaults, merge=true) %} #}

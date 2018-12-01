@@ -7,7 +7,6 @@
 include:
   - bootstrap.pacman
   - bootstrap.reflector
-  - bootstrap.pacserve
   - bootstrap.archaudit
   - bootstrap.fortune
   - bootstrap.neovim
