@@ -7,12 +7,14 @@
 include:
   - bootstrap.pacman
   - bootstrap.reflector
+  - bootstrap.salt
   - bootstrap.archaudit
   - bootstrap.fortune
   - bootstrap.neovim
 {% elif grains['os'] == 'Debian'%}
 include:
   - bootstrap.apt
+  - bootstrap.salt
   - bootstrap.fortune
   - bootstrap.neovim
 {% endif %}
