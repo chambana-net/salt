@@ -1,0 +1,16 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+
+x509_signing_policies:
+  {{ pki_name }}:
+    - signing_private_key: {{ pki_dir }}/{{ pki_name }}-ca-key.pem
+    - signing_cert: {{ pki_dir }}/{{ pki_name }}-ca.pem
+    - C: {{ C }}
+    - ST: {{ ST }}
+    - L: {{ L }}
+    - basicConstraints: "critical CA:false"
+    - keyUsage: "critical keyEncipherment"
+    - subjectKeyIdentifier: hash
+    - authorityKeyIdentifier: keyid,issuer:always
+    - days_valid: 90
+    - copypath: {{ pki_dir }}/issued_certs/

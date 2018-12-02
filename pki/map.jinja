@@ -1,0 +1,15 @@
+{# vi: set ft=jinja: #}
+
+{% import_yaml "pki/defaults.yaml" as defaults %}
+{% import_yaml "pki/osfamilymap.yaml" as osfamilymap %}
+
+{# merge OS-specific defaults #}
+{% set osfamily = salt['grains.filter_by'](osfamilymap, grain='os_family', merge=defaults.pki) or{} %}
+{% do defaults.pki.update(osfamily) %}
+
+{# merge overrides #}
+{% set lookup = salt['pillar.get']('pki:lookup', default={}, merge=True) %}
+{% do defaults.pki.update(lookup) %}
+
+{# merge all #}
+{% set pki = salt['pillar.get']('pki', default=defaults['pki'], merge=true) %}
