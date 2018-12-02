@@ -12,7 +12,7 @@ salt_pkg:
 
 salt_masterless_conf:
   file.managed:
-    - name: /etc/systemd/minion.d/10-masterless.conf
+    - name: /etc/salt/minion.d/10-masterless.conf
     - source: salt://bootstrap/files/salt/10-masterless.conf
     - user: root
     - group: root
@@ -22,7 +22,7 @@ salt_masterless_conf:
 
 salt_chambana_conf:
   file.managed:
-    - name: /etc/systemd/minion.d/20-chambana.conf
+    - name: /etc/salt/minion.d/20-chambana.conf
     - source: salt://bootstrap/files/salt/20-chambana.conf
     - user: root
     - group: root
