@@ -1,7 +1,0 @@
-# -*- coding: utf-8 -*-
-# vim: ft=yaml
-
-Arch:
-  ca_install_path: /srv/pki
-Debian:
-  ca_install_path: /usr/local/share/ca-certificates
