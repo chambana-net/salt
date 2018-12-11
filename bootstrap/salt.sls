@@ -7,8 +7,6 @@ salt_pkg:
   pkg.installed:
     - pkgs:
       - {{ bootstrap.salt_pkg }}
-    - require:
-      - file: pacman_conf
 
 salt_masterless_conf:
   file.managed:
