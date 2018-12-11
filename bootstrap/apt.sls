@@ -12,9 +12,9 @@ apt_packages:
       - apt-utils
       - apt-transport-https
 
-source_list_d:
+sources_list_d:
   file.directory:
-    - name: /etc/apt/source.list.d
+    - name: /etc/apt/sources.list.d
     - clean: True
 
 sources_list_default:
