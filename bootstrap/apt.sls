@@ -12,11 +12,17 @@ apt_packages:
       - apt-utils
       - apt-transport-https
 
+source_list_d:
+  file.directory:
+    - name: /etc/apt/source.list.d
+    - clean: True
+
 sources_list_default:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} packages
-    - name: deb https://deb.debian.org/debian {{ bootstrap.dist }} {{ bootstrap.dist }}
+    - name: deb https://deb.debian.org/debian {{ bootstrap.dist }} {{ bootstrap.components }}
     - file: /etc/apt/sources.list
+    - clean_file: True
     - require:
       - pkg: apt_packages
 
@@ -25,30 +31,40 @@ sources_list_default_src:
     - humanname: {{ bootstrap.dist }} sources
     - name: deb-src https://deb.debian.org/debian {{ bootstrap.dist }} {{ bootstrap.components }}
     - file: /etc/apt/sources.list
+    - require:
+      - pkgrepo: sources_list_default
 
 sources_list_security:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} security updates
     - name: deb https://deb.debian.org/debian-security {{ bootstrap.dist }}/updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
+    - require:
+      - pkgrepo: sources_list_default
 
 sources_list_security_src:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} security updates sources
     - name: deb-src https://deb.debian.org/debian-security {{ bootstrap.dist }}/updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
+    - require:
+      - pkgrepo: sources_list_default
 
 sources_list_updates:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} updates
     - name: deb https://deb.debian.org/debian {{ bootstrap.dist }}-updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
+    - require:
+      - pkgrepo: sources_list_default
 
 sources_list_updates_src:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} updates sources
     - name: deb-src https://deb.debian.org/debian {{ bootstrap.dist }}-updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
+    - require:
+      - pkgrepo: sources_list_default
 
 apt_conf_defaultrelease:
   file.managed:
