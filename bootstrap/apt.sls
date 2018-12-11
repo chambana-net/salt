@@ -20,7 +20,7 @@ sources_list_d:
 sources_list_default:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} packages
-    - name: deb https://deb.debian.org/debian {{ bootstrap.dist }} {{ bootstrap.components }}
+    - name: deb http://deb.debian.org/debian {{ bootstrap.dist }} {{ bootstrap.components }}
     - file: /etc/apt/sources.list
     - clean_file: True
     - require:
@@ -29,7 +29,7 @@ sources_list_default:
 sources_list_default_src:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} sources
-    - name: deb-src https://deb.debian.org/debian {{ bootstrap.dist }} {{ bootstrap.components }}
+    - name: deb-src http://deb.debian.org/debian {{ bootstrap.dist }} {{ bootstrap.components }}
     - file: /etc/apt/sources.list
     - require:
       - pkgrepo: sources_list_default
@@ -37,7 +37,7 @@ sources_list_default_src:
 sources_list_security:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} security updates
-    - name: deb https://deb.debian.org/debian-security {{ bootstrap.dist }}/updates {{ bootstrap.components }}
+    - name: deb http://deb.debian.org/debian-security {{ bootstrap.dist }}/updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
     - require:
       - pkgrepo: sources_list_default
@@ -45,7 +45,7 @@ sources_list_security:
 sources_list_security_src:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} security updates sources
-    - name: deb-src https://deb.debian.org/debian-security {{ bootstrap.dist }}/updates {{ bootstrap.components }}
+    - name: deb-src http://deb.debian.org/debian-security {{ bootstrap.dist }}/updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
     - require:
       - pkgrepo: sources_list_default
@@ -53,7 +53,7 @@ sources_list_security_src:
 sources_list_updates:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} updates
-    - name: deb https://deb.debian.org/debian {{ bootstrap.dist }}-updates {{ bootstrap.components }}
+    - name: deb http://deb.debian.org/debian {{ bootstrap.dist }}-updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
     - require:
       - pkgrepo: sources_list_default
@@ -61,7 +61,7 @@ sources_list_updates:
 sources_list_updates_src:
   pkgrepo.managed:
     - humanname: {{ bootstrap.dist }} updates sources
-    - name: deb-src https://deb.debian.org/debian {{ bootstrap.dist }}-updates {{ bootstrap.components }}
+    - name: deb-src http://deb.debian.org/debian {{ bootstrap.dist }}-updates {{ bootstrap.components }}
     - file: /etc/apt/sources.list
     - require:
       - pkgrepo: sources_list_default
