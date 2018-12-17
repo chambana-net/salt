@@ -8,6 +8,6 @@ Debian:
   fortune_bin: /usr/games/fortune
   salt_pkg: salt-minion
 Arch:
-  fortunes: /usr/share//fortune
+  fortunes: /usr/share/fortune
   fortune_bin: /usr/bin/fortune
   salt_pkg: salt
