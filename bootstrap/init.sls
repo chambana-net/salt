@@ -30,6 +30,21 @@ utilities:
       - rsync
       - etckeeper
       - curl
+
+{% if grains['os'] == 'Arch'%}
+certificates:
+  pkg.installed:
+    - pkgs:
+      - ca-certificates
+      - ca-certificates-mozilla
+      - ca-certificates-utils
+{% elif grains['os'] == 'Debian'%}
+certificates:
+  pkg.installed:
+    - pkgs:
+      - ca-certificates
+{% endif %}
+
 issue:
   file.managed:
     - name: {{ bootstrap.issue }}
