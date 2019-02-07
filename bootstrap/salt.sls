@@ -8,7 +8,7 @@ salt_repo:
   pkgrepo.managed:
     - humanname: Saltstack repo
     - name: deb http://repo.saltstack.com/apt/debian/{{ grains['osmajorrelease'] }}/amd64/2018.3 {{ bootstrap.dist }} {{ bootstrap.components }}
-    - file: /etc/apt/sources.list/salt.list
+    - file: /etc/apt/sources.list.d/salt.list
     - gpgcheck: 1
     - key_url: https://repo.saltstack.com/apt/debian/{{ grains['osmajorrelease'] }}/amd64/2018.3/SALTSTACK-GPG-KEY.pub
     - require:
