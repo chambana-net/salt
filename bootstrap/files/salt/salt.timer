@@ -1,9 +1,9 @@
 [Unit]
-Description=Run salt daily
+Description=Run salt hourly
 
 [Timer]
-OnCalendar=daily
-RandomizedDelaySec=12h
+OnCalendar=hourly
+RandomizedDelaySec=30m
 Persistent=true
 
 [Install]
