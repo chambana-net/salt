@@ -1,0 +1,11 @@
+dn: ou=users,{{ base_dn }}
+changetype: add
+objectclass: top
+objectclass: organizationalUnit
+ou: users
+
+dn: ou=groups,{{ base_dn }}
+changetype: add
+objectclass: top
+objectclass: organizationalUnit
+ou: groups

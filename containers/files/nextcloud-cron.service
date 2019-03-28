@@ -1,0 +1,9 @@
+[Unit]
+Description=Nextcloud cron.php job
+
+[Service]
+User=root
+ExecStart=/usr/bin/docker exec --user www-data nextcloud php cron.php
+
+[Install]
+WantedBy=basic.target

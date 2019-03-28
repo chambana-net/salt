@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+#
+nginx_proxy:
+  docker_socket: /var/run/docker.sock
+  nginx_template: /etc/docker-gen/templates/nginx.tmpl
+  letsencrypt_dir: /srv/certs

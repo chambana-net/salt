@@ -1,0 +1,18 @@
+{# vi: set ft=jinja: #}
+
+{% import_yaml "containers/defaults.yaml" as defaults %}
+
+{# merge all #}
+{% set nginx_proxy = salt['pillar.get']('deploy', default=defaults.nginx_proxy, merge=true) %}
+
+{% set ghost = salt['pillar.get']('ghost', default={}, merge=true) %}
+{% set dokuwiki = salt['pillar.get']('dokuwiki', default={}, merge=true) %}
+{% set jekyll = salt['pillar.get']('jekyll', default={}, merge=true) %}
+{% set keycloak = salt['pillar.get']('keycloak', default={}, merge=true) %}
+{% set ldap = salt['pillar.get']('ldap', default={}, merge=true) %}
+{% set phpldapadmin = salt['pillar.get']('phpldapadmin', default={}, merge=true) %}
+{% set mail = salt['pillar.get']('mail', default={}, merge=true) %}
+{% set podcastgen = salt['pillar.get']('podcastgen', default={}, merge=true) %}
+{% set static = salt['pillar.get']('static', default={}, merge=true) %}
+{% set nextcloud = salt['pillar.get']('nextcloud', default={}, merge=true) %}
+{% set limesurvey = salt['pillar.get']('limesurvey', default={}, merge=true) %}
