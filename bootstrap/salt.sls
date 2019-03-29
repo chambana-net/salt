@@ -44,6 +44,7 @@ salt_masterless_conf:
     - user: root
     - group: root
     - mode: 644
+    - makedirs: True
     - require:
       - pkg: salt_pkg
 
@@ -54,6 +55,7 @@ salt_chambana_conf:
     - user: root
     - group: root
     - mode: 644
+    - makedirs: True
     - require:
       - pkg: salt_pkg
 
