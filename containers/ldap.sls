@@ -25,6 +25,30 @@ ldif_preseed:
     - require:
       - file: ldif_dir
 
+ldap_backup_dir:
+  file.directory:
+    - name: /var/backups/ldap
+    - makedirs: True
+    - user: root
+    - group: root
+    - mode: 0750
+
+ldap_backup:
+  docker_container.running:
+    - name: ldap-backup
+    - hostname: ldap-backup
+    - image: osixia/openldap-backup:1.2.4
+    - restart_policy: always
+    - log_driver: journald
+    - networks:
+      - local_network
+    - binds:
+      - /var/backups/ldap:/data/backup:rw
+    - environment:
+      - LDAP_BACKUP_CONFIG_CRON_EXP: "30 0 * * *"
+    - require:
+      - file: ldap_backup_dir
+
 ldap:
   docker_container.running:
     - name: ldap

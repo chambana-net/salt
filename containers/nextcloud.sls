@@ -53,6 +53,7 @@ nextcloud-db:
       - PGDATA: /var/lib/postgresql/data/pgdata
       - POSTGRES_USER: nextcloud
       - POSTGRES_PASSWORD: {{ nextcloud.postgres_password }}
+      - POSTGRES_DB: whatever
     - require:
       - service: docker
       - docker_volume: nextcloud_db_data
