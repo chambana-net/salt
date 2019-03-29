@@ -7,7 +7,9 @@ Debian:
   fortunes: /usr/share/games/fortunes
   fortune_bin: /usr/games/fortune
   salt_pkg: salt-minion
+  pygit_pkg: python-pygit2
 Arch:
   fortunes: /usr/share/fortune
   fortune_bin: /usr/bin/fortune
   salt_pkg: salt
+  pygit_pkg: python2-pygit2

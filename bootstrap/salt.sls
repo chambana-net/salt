@@ -18,9 +18,24 @@ salt_repo:
 {% endif %}
 
 salt_pkg:
-  pkg.installed:
+  pkg.latest:
     - pkgs:
       - {{ bootstrap.salt_pkg }}
+      - {{ bootstrap.pygit_pkg }}
+      - git
+
+{% if grains['os'] == 'Debian' %}
+pip_pkg:
+  pkg.installed:
+    - pkgs:
+      - python-pip
+
+dockerpy_pkg:
+  pip.installed:
+    - name: docker
+    - require:
+      - pkg: pip_pkg
+{% endif %}
 
 salt_masterless_conf:
   file.managed:
