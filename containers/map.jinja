@@ -12,6 +12,7 @@
 {% set ldap = salt['pillar.get']('ldap', default={}, merge=true) %}
 {% set phpldapadmin = salt['pillar.get']('phpldapadmin', default={}, merge=true) %}
 {% set mail = salt['pillar.get']('mail', default={}, merge=true) %}
+{% set netdata = salt['pillar.get']('netdata', default={}, merge=true) %}
 {% set podcastgen = salt['pillar.get']('podcastgen', default={}, merge=true) %}
 {% set static = salt['pillar.get']('static', default={}, merge=true) %}
 {% set nextcloud = salt['pillar.get']('nextcloud', default={}, merge=true) %}
