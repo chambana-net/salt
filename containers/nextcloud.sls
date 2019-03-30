@@ -121,7 +121,7 @@ nextcloud_config:
   file.managed:
     - name: /etc/nextcloud-extras/custom.config.php
     - source: salt://containers/files/custom.config.php
-    - user: root
+    - user: www-data
     - group: root
     - mode: 0644
     - makedirs: True
