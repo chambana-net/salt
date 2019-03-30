@@ -32,5 +32,4 @@ include:
     - require:
       - service: docker
       - docker_network: local_network
-      - file: {{ site }}_users
 {% endfor %}
