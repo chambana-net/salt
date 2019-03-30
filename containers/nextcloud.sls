@@ -18,7 +18,6 @@ nextcloud:
     - binds:
       - {{ nextcloud.data_dir }}:/var/www/html:rw
       - /etc/nextcloud-extras/www.conf:/usr/local/etc/php-fpm.d/www.conf:ro
-      - /etc/nextcloud-extras/custom.config.php:/var/www/html/config/custom.config.php:ro
     - environment:
       - POSTGRES_DB: nextcloud
       - POSTGRES_USER: nextcloud
@@ -119,7 +118,7 @@ nextcloud_php_conf:
 
 nextcloud_config:
   file.managed:
-    - name: /etc/nextcloud-extras/custom.config.php
+    - name: {{ nextcloud.data_dir }}/custom.config.php
     - source: salt://containers/files/custom.config.php
     - user: www-data
     - group: root
