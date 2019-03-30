@@ -22,9 +22,9 @@ netdata:
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
     - environment:
-      - VIRTUAL_HOST: netdata.{{ fqdn }}
+      - VIRTUAL_HOST: {{ netdata.domain }}
       - VIRTUAL_PORT: 19999
-      - LETSENCRYPT_HOST: netdata.{{ fqdn }}
+      - LETSENCRYPT_HOST: {{ netdata.domain }}
       - LETSENCRYPT_EMAIL: {{ netdata.email }}
       - PGID: 999
     - require:
