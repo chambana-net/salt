@@ -44,7 +44,8 @@ postfix:
       - POSTFIX_SPAM_HOST: amavis
       - MAILMAN_ENABLE: '{{ mail.mailman_enable }}'
       - MAILMAN_DOMAIN: {{ mail.mailman_domain }}
-      - MAILMAN_LISTMASTER: {{ mail.mailman_sitepass }}
+      - MAILMAN_LISTMASTER: {{ mail.mailman_listmaster }}
+      - MAILMAN_SITEPASS: {{ mail.mailman_sitepass }}
       - OPENDKIM_ENABLE: '{{ mail.opendkim_enable }}'
     - require:
       - service: docker
