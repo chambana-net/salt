@@ -16,7 +16,7 @@ include:
     - networks:
       - local_network
     - volumes:
-      - /etc/ssh/auth/{{ site }}.yml:/etc/ssh/auth/{{ site }}.yml:ro
+      - /etc/ssh/auth/{{ site }}.yml:/etc/ssh/auth/users.yml:ro
       - /home:/home:ro
     - port_bindings:
       - {{ settings.ssh_port }}:22/tcp
@@ -26,7 +26,7 @@ include:
       - JEKYLL_GITHUB_BRANCH: {{ settings.github_branch }}
       - JEKYLL_GITHUB_SUBDIR: {{ settings.subdir }}
       - VIRTUAL_HOST: {{ settings.virtual_host }}
-      - VIRTUAL_PORT: 4000
+      - VIRTUAL_PORT: 80
       - LETSENCRYPT_HOST: {{ settings.letsencrypt_host }}
       - LETSENCRYPT_EMAIL: {{ settings.letsencrypt_email }}
     - require:
