@@ -67,8 +67,8 @@ dovecot:
       - 993:993/tcp
     - binds:
       - {{ mail.dovecot_certs_dir }}:/etc/letsencrypt:ro
-      - spam_bayes:/var/lib/amavis/.spamassassin:rw
-      - mailboxes:/var/mail:rw
+      - chambana_spam_bayes:/var/lib/amavis/.spamassassin:rw
+      - chambana_mailboxes:/var/mail:rw
     - environment:
       - VIRTUAL_HOST: {{ mail.dovecot_virtual_host }}
       - LETSENCRYPT_HOST: {{ mail.dovecot_letsencrypt_host }}
