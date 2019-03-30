@@ -16,7 +16,7 @@ include:
     - networks:
       - local_network
     - volumes:
-      - /etc/ssh/auth/users.yml:/etc/ssh/auth/users.yml:ro
+      - /etc/ssh/auth/{{ site }}.yml:/etc/ssh/auth/{{ site }}.yml:ro
       - /home:/home:ro
     - port_bindings:
       - {{ settings.ssh_port }}:22/tcp
@@ -33,13 +33,4 @@ include:
       - service: docker
       - docker_network: local_network
       - file: {{ site }}_users
-
-{{ site }}_users:
-  file.managed:
-    - name: /etc/ssh/auth/users.yml
-    - source: salt://files/users.yml
-    - makedirs: True
-    - user: root
-    - group: root
-    - mode: 0644
 {% endfor %}
