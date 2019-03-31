@@ -15,7 +15,7 @@ include:
     - log_driver: journald
     - networks:
       - local_network
-    - volumes:
+    - binds:
       - /etc/ssh/auth/{{ site }}.yml:/etc/ssh/auth/users.yml:ro
       - /home:/home:ro
     - port_bindings:
