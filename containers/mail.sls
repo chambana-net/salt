@@ -35,7 +35,9 @@ postfix:
       - POSTFIX_VIRTUAL_ALIAS_DOMAINS: {{ mail.postfix_virtual_alias_domains }}
       - POSTFIX_VIRTUAL_MAILBOX_DOMAINS: {{ mail.postfix_virtual_mailbox_domains }}
       - POSTFIX_RELAY_DOMAINS: {{ mail.postfix_relay_domain }}
+{% if mail.postfix_relayhost is defined %}
       - POSTFIX_RELAYHOST: {{ mail.postfix_relayhost }}
+{% endif %}
       - POSTFIX_LDAP_SERVER_HOST: {{ mail.postfix_ldap_server_host }}
       - POSTFIX_LDAP_SEARCH_BASE: {{ mail.postfix_ldap_search_base }}
       - POSTFIX_LDAP_START_TLS: '{{ mail.postfix_ldap_start_tls }}'
