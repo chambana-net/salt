@@ -49,6 +49,7 @@ postfix:
       - MAILMAN_LISTMASTER: {{ mail.mailman_listmaster }}
       - MAILMAN_SITEPASS: {{ mail.mailman_sitepass }}
       - OPENDKIM_ENABLE: '{{ mail.opendkim_enable }}'
+      - OPENDMARC_ENABLE: '{{ mail.opendmarc_enable }}'
     - require:
       - service: docker
       - docker_container: docker_gen
