@@ -33,6 +33,8 @@ docker_gen:
     - networks:
       - local_network
     - volumes_from: nginx
+    - environment:
+      - DEFAULT_HOST: {{ nginx_proxy.default_host }}
     - binds:
       - {{ nginx_proxy.nginx_template }}:/etc/docker-gen/templates/nginx.tmpl:ro
       - {{ nginx_proxy.docker_socket }}:/tmp/docker.sock:ro
