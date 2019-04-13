@@ -3,6 +3,8 @@
 
 {% from "containers/map.jinja" import mail with context %}
 
+{% set nameservers = grains['dns']['nameservers']|join(',') %}
+
 include:
   - containers.local
 
@@ -49,6 +51,7 @@ postfix:
       - MAILMAN_LISTMASTER: {{ mail.mailman_listmaster }}
       - MAILMAN_SITEPASS: {{ mail.mailman_sitepass }}
       - OPENDKIM_ENABLE: '{{ mail.opendkim_enable }}'
+      - OPENDKIM_NAMESERVERS: {{ nameservers }}
       - OPENDMARC_ENABLE: '{{ mail.opendmarc_enable }}'
     - require:
       - service: docker
