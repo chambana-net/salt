@@ -34,7 +34,9 @@ postfix:
       - POSTFIX_PROXY_INTERFACES: {{ mail.postfix_proxy_interfaces }}
       - POSTFIX_MYDESTINATION: {{ mail.postfix_mydestination }}
       - POSTFIX_MYNETWORKS: {{ mail.postfix_mynetworks }}
+{% if mail.postfix_virtual_alias_domains is defined %}
       - POSTFIX_VIRTUAL_ALIAS_DOMAINS: {{ mail.postfix_virtual_alias_domains }}
+{% endif %}
       - POSTFIX_VIRTUAL_MAILBOX_DOMAINS: {{ mail.postfix_virtual_mailbox_domains }}
       - POSTFIX_RELAY_DOMAINS: {{ mail.postfix_relay_domain }}
 {% if mail.postfix_relayhost is defined %}
