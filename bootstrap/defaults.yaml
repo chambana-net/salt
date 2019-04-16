@@ -8,6 +8,6 @@ bootstrap:
   skel: /etc/skel
   bash_bashrc: /etc/bash.bashrc
   netdata_pkg: netdata
-  netdata_conf_dir: /etc/netdata/netdata.conf
+  netdata_conf_dir: /etc/netdata/
   netdata_port: 19999
   auto: True
