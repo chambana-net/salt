@@ -24,7 +24,7 @@ stream_conf:
     - defaults:
         host: {{ bootstrap.netdata_host }}
         port: {{ bootstrap.netdata_port }}
-        uuid: {{ salt['grains.get_or_set_hash']('netdata:uuid', 50, 'abcdefghijklmnopqrstuvwxyz0123456789') }}
+        uuid: {{ grains['uuid'] }}
     - require:
       - pkg: netdata
 
