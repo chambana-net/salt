@@ -8,8 +8,12 @@ Debian:
   fortune_bin: /usr/games/fortune
   salt_pkg: salt-minion
   pygit_pkg: python-pygit2
+  netdata_user: root
+  netdata_group: root
 Arch:
   fortunes: /usr/share/fortune
   fortune_bin: /usr/bin/fortune
   salt_pkg: salt
   pygit_pkg: python2-pygit2
+  netdata_user: netdata
+  netdata_group: netdata
