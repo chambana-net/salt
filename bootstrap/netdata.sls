@@ -38,6 +38,7 @@ netdata:
     - enable: True
     - watch:
       - pkg: netdata
-      - file: netdata
+      - file: netdata_conf
+      - file: stream_conf
 
 
