@@ -24,7 +24,7 @@ stream_conf:
     - defaults:
         host: {{ bootstrap.netdata_host }}
         port: {{ bootstrap.netdata_port }}
-        uuid: {{ grains['machine_id'] }}
+        uuid: {{ bootstrap.netdata_apikey }}
     - require:
       - pkg: netdata
 
