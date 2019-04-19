@@ -24,6 +24,7 @@ salt_pkg:
 
 salt_git_pkg:
   pkg.installed:
+    - pkgs:
       - {{ bootstrap.pygit_pkg }}
       - git
 
