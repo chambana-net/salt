@@ -11,6 +11,7 @@ apt_packages:
       - debconf-utils
       - apt-utils
       - apt-transport-https
+      - apticron
 
 sources_list_d:
   file.directory:
