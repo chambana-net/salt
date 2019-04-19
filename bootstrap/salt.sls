@@ -21,6 +21,9 @@ salt_pkg:
   pkg.latest:
     - pkgs:
       - {{ bootstrap.salt_pkg }}
+
+salt_git_pkg:
+  pkg.installed:
       - {{ bootstrap.pygit_pkg }}
       - git
 
@@ -47,6 +50,11 @@ salt_masterless_conf:
     - makedirs: True
     - require:
       - pkg: salt_pkg
+      - pkg: salt_git_pkg
+
+  service.dead:
+    - name: salt-minion
+    - enable: False
 
 salt_chambana_conf:
   file.managed:
@@ -58,6 +66,7 @@ salt_chambana_conf:
     - makedirs: True
     - require:
       - pkg: salt_pkg
+      - pkg: salt_git_pkg
 
 {% if bootstrap.auto == True %}
 salt_service:
@@ -72,6 +81,7 @@ salt_service:
     - name: salt.service
     - require:
       - pkg: salt_pkg
+      - pkg: salt_git_pkg
       - file: salt_service
 
 salt_timer:
@@ -87,6 +97,7 @@ salt_timer:
     - enable: True
     - require:
       - pkg: salt_pkg
+      - pkg: salt_git_pkg
       - file: salt_timer
       - file: salt_service
 {% else %}
