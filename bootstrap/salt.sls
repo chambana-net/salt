@@ -104,7 +104,7 @@ salt_timer:
 {% else %}
 salt_service:
   file.absent:
-    - name /etc/systemd/system/salt.service
+    - name: /etc/systemd/system/salt.service
     - require:
       - service: salt_service
 
@@ -113,7 +113,7 @@ salt_service:
 
 salt_timer:
   file.absent:
-    - name /etc/systemd/system/salt.timer
+    - name: /etc/systemd/system/salt.timer
     - require:
       - service: salt_timer
 
