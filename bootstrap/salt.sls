@@ -3,7 +3,7 @@
 
 {% from "bootstrap/map.jinja" import bootstrap with context %}
 
-{% if grains['os'] == 'Debian'%}
+{% if grains['os_family'] == 'Debian'%}
 salt_repo:
   pkgrepo.managed:
     - humanname: Saltstack repo
@@ -28,7 +28,7 @@ salt_git_pkg:
       - {{ bootstrap.pygit_pkg }}
       - git
 
-{% if grains['os'] == 'Debian' %}
+{% if grains['os_family'] == 'Debian' %}
 pip_pkg:
   pkg.installed:
     - pkgs:

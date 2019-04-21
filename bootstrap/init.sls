@@ -3,7 +3,7 @@
 
 {% from "bootstrap/map.jinja" import bootstrap with context %}
 
-{% if grains['os'] == 'Arch'%}
+{% if grains['os_family'] == 'Arch'%}
 include:
   - bootstrap.pacman
   - bootstrap.reflector
@@ -11,7 +11,7 @@ include:
   - bootstrap.archaudit
   - bootstrap.fortune
   - bootstrap.neovim
-{% elif grains['os'] == 'Debian'%}
+{% elif grains['os_family'] == 'Debian'%}
 include:
   - bootstrap.apt
   - bootstrap.salt
@@ -31,14 +31,14 @@ utilities:
       - etckeeper
       - curl
 
-{% if grains['os'] == 'Arch'%}
+{% if grains['os_family'] == 'Arch'%}
 certificates:
   pkg.installed:
     - pkgs:
       - ca-certificates
       - ca-certificates-mozilla
       - ca-certificates-utils
-{% elif grains['os'] == 'Debian'%}
+{% elif grains['os_family'] == 'Debian'%}
 certificates:
   pkg.installed:
     - pkgs:
