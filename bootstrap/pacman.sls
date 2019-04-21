@@ -3,11 +3,11 @@
 
 {% from "bootstrap/map.jinja" import bootstrap with context %}
 
-{% if grains['osarch'] == 'armv71' %}
+{% if grains['osarch'] == 'armv7l' %}
 pacman_conf:
   file.managed:
     - name: /etc/pacman.conf
-    - source: salt://bootstrap/files/pacman/pacman.conf.armv71
+    - source: salt://bootstrap/files/pacman/pacman.conf.armv7l
     - user: root
     - group: root
     - mode: 644
