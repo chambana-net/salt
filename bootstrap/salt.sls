@@ -108,8 +108,9 @@ salt_service:
     - require:
       - service: salt_service
 
-  service.disable:
+  service.dead:
     - name: salt.service
+    - enable: False
 
 salt_timer:
   file.absent:
