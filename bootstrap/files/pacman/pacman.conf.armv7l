@@ -19,7 +19,7 @@ HoldPkg     = pacman glibc
 #XferCommand = /usr/bin/wget --passive-ftp -c -O %o %u
 #CleanMethod = KeepInstalled
 #UseDelta    = 0.7
-Architecture = auto
+Architecture = armv7l
 
 # Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
 IgnorePkg   = python2-pygit2
@@ -77,38 +77,17 @@ Include = /etc/pacman.d/mirrorlist
 [extra]
 Include = /etc/pacman.d/mirrorlist
 
-#[community-testing]
-#Include = /etc/pacman.d/mirrorlist
-
 [community]
 Include = /etc/pacman.d/mirrorlist
 
-# If you want to run 32 bit applications on your x86_64 system,
-# enable the multilib repositories as required here.
-
-#[multilib-testing]
-#Include = /etc/pacman.d/mirrorlist
-
-[multilib]
+[alarm]
 Include = /etc/pacman.d/mirrorlist
 
-[herecura-testing]
-Server = http://repo.herecura.be/herecura-testing/$arch
-
-#[quarry]
-#Server = http://pkgbuild.com/~anatolik/quarry/x86_64/
+[aur]
+Include = /etc/pacman.d/mirrorlist
 
 [xyne-any]
 Server = https://xyne.archlinux.ca/bin/repo.php?file=
-
-[antergos]
-#SigLevel = Never
-SigLevel = PackageRequired
-Usage = All
-Server = http://mirrors.antergos.com/$repo/$arch
-
-#[blackarch]
-#Server = http://mirror.team-cymru.org/blackarch/$repo/os/$arch
 
 # An example of a custom package repository.  See the pacman manpage for
 # tips on creating your own repositories.
