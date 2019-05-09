@@ -17,5 +17,6 @@ $CONFIG = array (
   'mail_smtpauth' => 1,
   'mail_smtpname' => 'eviloverlord',
   'mail_smtppassword' => '3QxGBXpIu07lrg4abGVZqiwgY0j3jdOK',
+  'overwriteprotocol' => 'https'
 );
 
