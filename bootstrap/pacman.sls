@@ -28,3 +28,15 @@ makepkg_conf:
     - user: root
     - group: root
     - mode: 644
+
+pacman_contrib:
+  pkg.installed:
+    - pkgs:
+      - pacman-contrib
+
+paccache:
+  service.running:
+    - name: paccache.timer
+    - enabled: True
+    - require:
+      - pkg: pacman_contrib
