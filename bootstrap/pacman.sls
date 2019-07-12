@@ -37,6 +37,6 @@ pacman_contrib:
 paccache:
   service.running:
     - name: paccache.timer
-    - enabled: True
+    - enable: True
     - require:
       - pkg: pacman_contrib
