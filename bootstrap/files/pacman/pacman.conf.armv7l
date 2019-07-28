@@ -72,19 +72,19 @@ LocalFileSigLevel = Optional
 #Include = /etc/pacman.d/mirrorlist
 
 [core]
-Include = /etc/pacman.d/mirrorlist
+Server = http://mirror.archlinuxarm.org/$arch/$repo
 
 [extra]
-Include = /etc/pacman.d/mirrorlist
+Server = http://mirror.archlinuxarm.org/$arch/$repo
 
 [community]
-Include = /etc/pacman.d/mirrorlist
+Server = http://mirror.archlinuxarm.org/$arch/$repo
 
 [alarm]
-Include = /etc/pacman.d/mirrorlist
+Server = http://mirror.archlinuxarm.org/$arch/$repo
 
 [aur]
-Include = /etc/pacman.d/mirrorlist
+Server = http://mirror.archlinuxarm.org/$arch/$repo
 
 [xyne-any]
 Server = https://xyne.archlinux.ca/bin/repo.php?file=

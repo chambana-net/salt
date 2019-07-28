@@ -6,7 +6,6 @@
 {% if grains['os_family'] == 'Arch'%}
 include:
   - bootstrap.pacman
-  - bootstrap.reflector
   - bootstrap.salt
   - bootstrap.archaudit
   - bootstrap.fortune

@@ -12,6 +12,9 @@ pacman_conf:
     - group: root
     - mode: 644
 {% else %}
+include:
+  - .reflector
+
 pacman_conf:
   file.managed:
     - name: /etc/pacman.conf
