@@ -6,25 +6,44 @@
 include:
   - containers.local
 
+pleroma_src:
+  git.latest:
+    - name: https://git.pleroma.social/pleroma/pleroma.git
+    - target: /var/tmp/pleroma
+    - force_reset: True
+
+pleroma_image:
+  docker_image.present:
+    - build: /var/tmp/pleroma
+    - tag: local
+    - require:
+      - service: docker
+      - pleroma_src: git
+
 pleroma:
   docker_container.running:
     - name: pleroma
-    - image: pandentia/pleroma:latest
+    - image: pleroma:local
     - restart_policy: always
     - log_driver: journald
     - networks:
       - local_network
       - private_network
     - binds:
-      - pleroma_uploads:/pleroma/uploads:rw
-      - {{ pleroma.config }}:/pleroma/config/prod.secret.exs
+      - pleroma_data:/var/lib/pleroma:rw
     - environment:
+      - DOMAIN: {{ pleroma.virtual_host }}
+      - ADMIN_EMAIL: hostmaster@chambana.net
+      - NOTIFY_EMAIL: notifications@chambana.net
+      - DB_HOST: pleroma-postgres
+      - DB_PASS: {{ pleroma.postgres_password }}
       - VIRTUAL_HOST: {{ pleroma.virtual_host }}
       - VIRTUAL_PORT: 4000
       - LETSENCRYPT_HOST: {{ pleroma.virtual_host }}
       - LETSENCRYPT_EMAIL: {{ pleroma.letsencrypt_email }}
     - require:
       - service: docker
+      - docker_volume: pleroma_data
       - docker_container: pleroma-postgres
       - docker_network: local_network
       - docker_network: private_network
@@ -49,9 +68,9 @@ pleroma-postgres:
       - docker_volume: pleroma_db_data
       - docker_network: private_network
 
-pleroma_uploads:
+pleroma_data:
   docker_volume.present:
-    - name: pleroma_uploads
+    - name: pleroma_data
     - driver: local
 
 pleroma_db_data:
