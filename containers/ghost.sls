@@ -16,7 +16,7 @@ include:
     - networks:
       - local_network
     - binds:
-      - chambana_{{ site }}:/var/lib/ghost:rw
+      - chambana_{{ site }}:/var/lib/ghost/content:rw
     - environment:
       - VIRTUAL_HOST: {{ settings.virtual_host }}
       - VIRTUAL_PORT: 2368
