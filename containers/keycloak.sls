@@ -9,7 +9,7 @@ include:
 keycloak:
   docker_container.running:
     - name: keycloak
-    - image: jboss/keycloak:5.0.0
+    - image: jboss/keycloak:6.0.1
     - restart_policy: always
     - log_driver: journald
     - networks:
