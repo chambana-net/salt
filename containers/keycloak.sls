@@ -23,6 +23,7 @@ keycloak:
       - VIRTUAL_PORT: 8080
       - LETSENCRYPT_HOST: {{ keycloak.virtual_host }}
       - LETSENCRYPT_EMAIL: {{ keycloak.letsencrypt_email }}
+      - DB_USER: keycloak
       - DB_VENDOR: postgres
       - DB_ADDR: keycloak-postgres
       - DB_PASSWORD: {{ keycloak.postgres_password }}
