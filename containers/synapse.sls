@@ -14,9 +14,12 @@ synapse:
     - log_driver: journald
     - networks:
       - local_network
-      - private_network
+      - synapse_network
+    - port_bindings:
+      - 8448:8448/tcp
     - binds:
       - synapse_data:/data:rw
+      - {{ synapse.letsencrypt_dir}}/{{ synapse.virtual_host }}:/certs:ro
     - environment:
       - VIRTUAL_HOST: {{ synapse.virtual_host }}
       - VIRTUAL_PORT: 8008
@@ -28,7 +31,7 @@ synapse:
       - service: docker
       - docker_container: synapse-postgres
       - docker_network: local_network
-      - docker_network: private_network
+      - docker_network: synapse_network
 
 synapse-postgres:
   docker_container.running:
@@ -37,7 +40,7 @@ synapse-postgres:
     - restart_policy: always
     - log_driver: journald
     - networks:
-      - private_network
+      - synapse_network
     - binds:
       - synapse_postgres:/var/lib/postgresql/data:rw
     - environment:
@@ -48,14 +51,20 @@ synapse-postgres:
     - require:
       - service: docker
       - docker_volume: synapse_db_data
-      - docker_network: private_network
+      - docker_network: synapse_network
 
 synapse_data:
   docker_volume.present:
-    - name: synapse_data
+    - name: chambana_synapse_data
     - driver: local
 
 synapse_db_data:
   docker_volume.present:
-    - name: synapse_postgres
+    - name: chambana_synapse_postgres
     - driver: local
+
+synapse_network:
+  docker_network.present:
+    - name: synapse_network
+    - driver: bridge
+    - internal: True
