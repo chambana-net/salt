@@ -18,7 +18,7 @@ synapse:
     - port_bindings:
       - 8448:8448/tcp
     - binds:
-      - synapse_data:/data:rw
+      - chambana_synapse_data:/data:rw
       - {{ synapse.letsencrypt_dir}}/{{ synapse.virtual_host }}:/certs:ro
     - environment:
       - VIRTUAL_HOST: {{ synapse.virtual_host }}
@@ -42,7 +42,7 @@ synapse-postgres:
     - networks:
       - synapse_network
     - binds:
-      - synapse_postgres:/var/lib/postgresql/data:rw
+      - chambana_synapse_postgres:/var/lib/postgresql/data:rw
     - environment:
       - PGDATA: /var/lib/postgresql/data/pgdata
       - POSTGRES_DB: synapse
