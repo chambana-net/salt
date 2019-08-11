@@ -23,12 +23,12 @@ pleroma_image:
 pleroma:
   docker_container.running:
     - name: pleroma
-    - image: pleroma:local
+    - image: pleroma_image:local
     - restart_policy: always
     - log_driver: journald
     - networks:
       - local_network
-      - private_network
+      - pleroma_network
     - binds:
       - pleroma_data:/var/lib/pleroma:rw
     - environment:
@@ -46,7 +46,7 @@ pleroma:
       - docker_volume: pleroma_data
       - docker_container: pleroma-postgres
       - docker_network: local_network
-      - docker_network: private_network
+      - docker_network: pleroma_network
 
 pleroma-postgres:
   docker_container.running:
@@ -55,7 +55,7 @@ pleroma-postgres:
     - restart_policy: always
     - log_driver: journald
     - networks:
-      - private_network
+      - pleroma_network
     - binds:
       - pleroma_postgres:/var/lib/postgresql/data:rw
     - environment:
@@ -66,7 +66,7 @@ pleroma-postgres:
     - require:
       - service: docker
       - docker_volume: pleroma_db_data
-      - docker_network: private_network
+      - docker_network: pleroma_network
 
 pleroma_data:
   docker_volume.present:
@@ -77,3 +77,9 @@ pleroma_db_data:
   docker_volume.present:
     - name: pleroma_postgres
     - driver: local
+
+pleroma_network:
+  docker_network.present:
+    - name: pleroma_network
+    - driver: bridge
+    - internal: True
