@@ -18,7 +18,7 @@ pleroma_image:
     - tag: local
     - require:
       - service: docker
-      - pleroma_src: git
+      - git: pleroma_src
 
 pleroma:
   docker_container.running:
