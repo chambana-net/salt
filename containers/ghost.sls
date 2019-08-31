@@ -30,15 +30,16 @@ include:
       - database__connection__password: {{ settings.mariadb_password }}
       - database__connection__database: "ghost"
       - mail__transport: "SMTP"
+      - mail__from: {{ settings.mail_host }}
       - mail__options__port: 587
       - mail__options__host: {{ settings.mail_host }}
       - mail__options__secureConnection: 'true'
       - mail__options__auth__user: {{ settings.mail_user }}
       - mail__options__auth__pass: {{ settings.mail_password }}
-
     - require:
       - service: docker
       - docker_network: local_network
+      - docker_network: {{ site }}_network
       - docker_volume: {{ site }}_ghost
 
 {{ site }}-db:
@@ -55,8 +56,9 @@ include:
       - MYSQL_ROOT_PASSWORD: {{ settings.mariadb_password }}
     - require:
       - service: docker
-      - docker_volume: limesurvey_db_data
+      - docker_volume: {{ site }}_db_data
       - docker_network: local_network
+      - docker_network: {{ site }}_network
 
 {{ site }}_ghost:
   docker_volume.present:
