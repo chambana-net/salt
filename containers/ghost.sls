@@ -23,7 +23,7 @@ include:
       - VIRTUAL_PORT: 2368
       - LETSENCRYPT_HOST: {{ settings.letsencrypt_host }}
       - LETSENCRYPT_EMAIL: {{ settings.letsencrypt_email }}
-      - url: {{ settings.virtual_host }}
+      - url: {{ settings.url }}
       - database__client: "mysql"
       - database__connection__host: "{{ site }}-db"
       - database__connection__user: "root"
