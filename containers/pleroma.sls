@@ -32,7 +32,7 @@ pleroma:
     - binds:
       - pleroma_data:/var/lib/pleroma:rw
     - environment:
-      - DOMAIN: {{ pleroma.virtual_host }}
+      - DOMAIN: {{ pleroma.domain }}
       - ADMIN_EMAIL: hostmaster@chambana.net
       - NOTIFY_EMAIL: notifications@chambana.net
       - DB_HOST: pleroma-postgres
