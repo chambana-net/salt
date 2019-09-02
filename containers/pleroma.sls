@@ -33,6 +33,7 @@ pleroma:
       - pleroma_data:/var/lib/pleroma:rw
     - environment:
       - DOMAIN: {{ pleroma.domain }}
+      - INSTANCE_NAME: {{ pleroma.instance_name }}
       - ADMIN_EMAIL: hostmaster@chambana.net
       - NOTIFY_EMAIL: notifications@chambana.net
       - DB_HOST: pleroma-postgres
