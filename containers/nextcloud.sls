@@ -58,6 +58,28 @@ nextcloud-db:
       - docker_volume: nextcloud_db_data
       - docker_network: local_network
 
+nextcloud-collabora:
+  docker_container.running:
+    - name: nextcloud-collabora
+    - image: collabora/code:latest
+    - restart_policy: always
+    - log_driver: journald
+    - networks:
+      - local_network
+    - cap_add: MKNOD
+    - environment:
+      - domain: '{{ nextcloud.virtual_host }}'
+      - username: {{ nextcloud.admin_user }}
+      - password: {{ nextcloud.admin_password }}
+      - extra_params: --o:ssl.enable=false --o:ssl.termination=true
+      - VIRTUAL_HOST: office.{{ nextcloud.virtual_host }}
+      - VIRTUAL_PORT: 9980
+      - LETSENCRYPT_HOST: office.{{ nextcloud.virtual_host }}
+      - LETSENCRYPT_EMAIL: {{ nextcloud.email }}
+    - require:
+      - service: docker
+      - docker_network: local_network
+
 nextcloud_db_data:
   docker_volume.present:
     - name: nextcloud_db_data

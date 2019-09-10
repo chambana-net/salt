@@ -65,9 +65,9 @@ net.ipv4.conf.all.rp_filter:
     - value: 1
 
 ## disable ALL packet forwarding (not a router, disable it)
-net.ipv4.ip_forward:
-  sysctl.present:
-    - value: 0
+#net.ipv4.ip_forward:
+#  sysctl.present:
+#    - value: 0
 
 ## log martian packets
 net.ipv4.conf.all.log_martians:
