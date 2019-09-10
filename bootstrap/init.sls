@@ -10,12 +10,14 @@ include:
   - bootstrap.archaudit
   - bootstrap.fortune
   - bootstrap.neovim
+  - bootstrap.sysctl
 {% elif grains['os_family'] == 'Debian'%}
 include:
   - bootstrap.apt
   - bootstrap.salt
   - bootstrap.fortune
   - bootstrap.neovim
+  - bootstrap.sysctl
 {% endif %}
 
 utilities:
