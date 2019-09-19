@@ -30,7 +30,7 @@ include:
       - database__connection__password: {{ settings.mariadb_password }}
       - database__connection__database: "ghost"
       - mail__transport: "SMTP"
-      - mail__from: {{ settings.mail_host }}
+      - mail__from: {{ settings.mail_from }}
       - mail__options__port: 587
       - mail__options__host: {{ settings.mail_host }}
       - mail__options__secureConnection: 'false'
