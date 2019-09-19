@@ -33,7 +33,7 @@ include:
       - mail__from: {{ settings.mail_host }}
       - mail__options__port: 587
       - mail__options__host: {{ settings.mail_host }}
-      - mail__options__secureConnection: 'true'
+      - mail__options__secureConnection: 'false'
       - mail__options__auth__user: {{ settings.mail_user }}
       - mail__options__auth__pass: {{ settings.mail_password }}
     - require:
