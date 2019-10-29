@@ -16,7 +16,6 @@ $CONFIG = array (
   'mail_smtpauthtype' => 'PLAIN',
   'mail_smtpauth' => 1,
   'mail_smtpname' => 'eviloverlord',
-  'mail_smtppassword' => '3QxGBXpIu07lrg4abGVZqiwgY0j3jdOK',
+  'mail_smtppassword' => '{{ mail_password }}',
   'overwriteprotocol' => 'https'
 );
-

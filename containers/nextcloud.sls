@@ -146,3 +146,6 @@ nextcloud_config:
     - group: root
     - mode: 0644
     - makedirs: True
+    - template: jinja
+    - defaults:
+        mail_password: {{ nextcloud.mail_password }}
