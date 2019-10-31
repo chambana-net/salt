@@ -66,7 +66,10 @@ nextcloud-collabora:
     - log_driver: journald
     - networks:
       - local_network
-    - cap_add: MKNOD
+    - cap_add:
+      - FOWNER
+      - MKNOD
+      - SYS_CHROOT
     - environment:
       - domain: '{{ nextcloud.virtual_host }}'
       - username: {{ nextcloud.admin_user }}
