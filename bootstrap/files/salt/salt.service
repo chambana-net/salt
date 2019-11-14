@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/salt-call state.highstate
+ExecStart=/usr/bin/salt-call --refresh-grains-cache state.highstate
 
 [Install]
 RequiredBy=multi-user.target
