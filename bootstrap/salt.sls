@@ -17,10 +17,12 @@ salt_repo:
       - pkg: salt_pkg
 {% endif %}
 
+{% if grains['os_family'] != 'Arch' %}
 salt_pkg:
   pkg.latest:
     - pkgs:
       - {{ bootstrap.salt_pkg }}
+{% endif %}
 
 salt_git_pkg:
   pkg.installed:
@@ -50,7 +52,9 @@ salt_masterless_conf:
     - mode: 644
     - makedirs: True
     - require:
+{% if grains['os_family'] != 'Arch' %}
       - pkg: salt_pkg
+{% endif %}
       - pkg: salt_git_pkg
 
   service.dead:
@@ -66,7 +70,9 @@ salt_chambana_conf:
     - mode: 644
     - makedirs: True
     - require:
+{% if grains['os_family'] != 'Arch' %}
       - pkg: salt_pkg
+{% endif %}
       - pkg: salt_git_pkg
 
 {% if bootstrap.auto == True %}
@@ -81,7 +87,9 @@ salt_service:
   service.enabled:
     - name: salt.service
     - require:
+{% if grains['os_family'] != 'Arch' %}
       - pkg: salt_pkg
+{% endif %}
       - pkg: salt_git_pkg
       - file: salt_service
 
@@ -97,7 +105,9 @@ salt_timer:
     - name: salt.timer
     - enable: True
     - require:
+{% if grains['os_family'] != 'Arch' %}
       - pkg: salt_pkg
+{% endif %}
       - pkg: salt_git_pkg
       - file: salt_timer
       - file: salt_service
@@ -122,4 +132,3 @@ salt_timer:
     - name: salt.timer
     - enable: False
 {% endif %}
-
