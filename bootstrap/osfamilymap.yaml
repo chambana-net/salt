@@ -13,7 +13,7 @@ Debian:
 Arch:
   fortunes: /usr/share/fortune
   fortune_bin: /usr/bin/fortune
-  salt_pkg: salt
-  pygit_pkg: python2-pygit2
+  salt_pkg: salt-py3
+  pygit_pkg: python-pygit2
   netdata_user: netdata
   netdata_group: netdata
