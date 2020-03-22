@@ -84,15 +84,6 @@ salt_service:
     - group: root
     - mode: 644
 
-  service.enabled:
-    - name: salt.service
-    - require:
-{% if grains['os_family'] != 'Arch' %}
-      - pkg: salt_pkg
-{% endif %}
-      - pkg: salt_git_pkg
-      - file: salt_service
-
 salt_timer:
   file.managed:
     - name: /etc/systemd/system/salt.timer
