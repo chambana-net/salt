@@ -24,13 +24,6 @@ reflector_pkg:
     - require:
       - file: pacman_conf
 
-reflector_service:
-  service.enabled:
-    - name: reflector
-    - require:
-      - pkg: reflector_pkg
-      - file: reflector_service_systemd
-
 reflector_timer:
   service.running:
     - name: reflector.timer
