@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
-# Restrict ptrace scope
-kernel.yama.ptrace_scope:
-  sysctl.present:
-    - value: 1
-
 # Keep BPF JIT compiler disabled
 #net.core.bpf_jit_enable:
 #  sysctl.present:
@@ -31,32 +26,6 @@ kernel.kptr_restrict:
     - value: 1
 
 #### ipv4 networking ####
-
-## TCP SYN cookie protection
-## helps protect against SYN flood attacks
-## only kicks in when net.ipv4.tcp_max_syn_backlog is reached
-net.ipv4.tcp_syncookies:
-  sysctl.present:
-    - value: 1
-
-## protect against tcp time-wait assassination hazards
-## drop RST packets for sockets in the time-wait state
-## (not widely supported outside of linux, but conforms to RFC)
-net.ipv4.tcp_rfc1337:
-  sysctl.present:
-    - value: 1
-
-## tcp timestamps
-## + protect against wrapping sequence numbers (at gigabit speeds)
-## + round trip time calculation implemented in TCP
-## - causes extra overhead and allows uptime detection by scanners like nmap
-## enable @ gigabit speeds
-net.ipv4.tcp_timestamps:
-  sysctl.present:
-    - value: 0
-#net.ipv4.tcp_timestamps:
-#  sysctl.present:
-#    - value: 0
 
 ## source address verification (sanity checking)
 ## helps protect against spoofing attacks
@@ -120,6 +89,81 @@ net.ipv6.conf.default.use_tempaddr:
 
 # Network tuning
 
+# Increase max connections
+net.core.somaxconn:
+  sysctl.present:
+    - value: 1024
+
+# Change TCP keepalive parameters
+#net.ipv4.tcp_keepalive_time = 60
+#net.ipv4.tcp_keepalive_intvl = 10
+#net.ipv4.tcp_keepalive_probes = 6
+
+# Enable MTU probing
+net.ipv4.tcp_mtu_probing:
+  sysctl.present:
+    - value: 1
+
+
+# VM and Filesystem tuning
+
+# Contains, as a percentage of total system memory, the number of pages at which
+# a process which is generating disk writes will start writing out dirty data.
+vm.dirty_ratio:
+  sysctl.present:
+    - value: 3
+
+# Contains, as a percentage of total system memory, the number of pages at which
+# the background kernel flusher threads will start writing out dirty data.
+vm.dirty_background_ratio:
+  sysctl.present:
+    - value: 2
+
+# Reduce swappiness.
+vm.swappiness:
+  sysctl.present:
+    - value: 1
+
+# Favor filesystem caches.
+vm.vfs_cache_pressure:
+  sysctl.present:
+    - value: 50
+
+# Increase number of user inotify watches.
+fs.inotify.max_user_watches:
+  sysctl.present:
+    - value: 524288
+
+{% if grains['osarch'] != 'armv7l' %}
+
+# Restrict ptrace scope
+kernel.yama.ptrace_scope:
+  sysctl.present:
+    - value: 1
+
+## TCP SYN cookie protection
+## helps protect against SYN flood attacks
+## only kicks in when net.ipv4.tcp_max_syn_backlog is reached
+net.ipv4.tcp_syncookies:
+  sysctl.present:
+    - value: 1
+
+## protect against tcp time-wait assassination hazards
+## drop RST packets for sockets in the time-wait state
+## (not widely supported outside of linux, but conforms to RFC)
+net.ipv4.tcp_rfc1337:
+  sysctl.present:
+    - value: 1
+
+## tcp timestamps
+## + protect against wrapping sequence numbers (at gigabit speeds)
+## + round trip time calculation implemented in TCP
+## - causes extra overhead and allows uptime detection by scanners like nmap
+## enable @ gigabit speeds
+net.ipv4.tcp_timestamps:
+  sysctl.present:
+    - value: 0
+
 # Increase the size of the receive queue
 net.core.netdev_max_backlog:
   sysctl.present:
@@ -129,14 +173,9 @@ net.core.netdev_budget:
   sysctl.present:
     - value: 50000
 
-net.core.netdev_budget_usecs: 
+net.core.netdev_budget_usecs:
   sysctl.present:
     - value: 5000
-
-# Increase max connections
-net.core.somaxconn:
-  sysctl.present:
-    - value: 1024
 
 # Increase memory dedicated to the network interfaces
 net.core.rmem_default:
@@ -202,42 +241,5 @@ net.ipv4.tcp_slow_start_after_idle:
   sysctl.present:
     - value: 0
 
-# Change TCP keepalive parameters
-#net.ipv4.tcp_keepalive_time = 60
-#net.ipv4.tcp_keepalive_intvl = 10
-#net.ipv4.tcp_keepalive_probes = 6
 
-# Enable MTU probing
-net.ipv4.tcp_mtu_probing:
-  sysctl.present:
-    - value: 1
-
-
-# VM and Filesystem tuning
-
-# Contains, as a percentage of total system memory, the number of pages at which
-# a process which is generating disk writes will start writing out dirty data.
-vm.dirty_ratio:
-  sysctl.present:
-    - value: 3
-
-# Contains, as a percentage of total system memory, the number of pages at which
-# the background kernel flusher threads will start writing out dirty data.
-vm.dirty_background_ratio:
-  sysctl.present:
-    - value: 2
-
-# Reduce swappiness.
-vm.swappiness:
-  sysctl.present:
-    - value: 1
-
-# Favor filesystem caches.
-vm.vfs_cache_pressure:
-  sysctl.present:
-    - value: 50
-
-# Increase number of user inotify watches.
-fs.inotify.max_user_watches:
-  sysctl.present:
-    - value: 524288
+{% endif %}
