@@ -173,9 +173,11 @@ net.core.netdev_budget:
   sysctl.present:
     - value: 50000
 
+{% if grains['os_family'] != 'Debian' %}
 net.core.netdev_budget_usecs:
   sysctl.present:
     - value: 5000
+{% endif %}
 
 # Increase memory dedicated to the network interfaces
 net.core.rmem_default:
