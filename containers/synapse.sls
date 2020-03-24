@@ -25,8 +25,8 @@ synapse:
       - VIRTUAL_PORT: 8008
       - LETSENCRYPT_HOST: {{ synapse.letsencrypt_host }}
       - LETSENCRYPT_EMAIL: {{ synapse.letsencrypt_email }}
-      - UID: nobody
-      - GID: nobody
+      - UID: 65534
+      - GID: 65534
     - require:
       - service: docker
       - docker_container: synapse-postgres
