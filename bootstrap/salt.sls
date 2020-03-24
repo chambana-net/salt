@@ -22,6 +22,7 @@ salt_pkg:
   pkg.latest:
     - pkgs:
       - {{ bootstrap.salt_pkg }}
+      - python-docker
 {% endif %}
 
 salt_git_pkg:
