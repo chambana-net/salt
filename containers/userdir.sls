@@ -20,14 +20,14 @@ include:
       - /home:/home:ro
       - /etc/passwd:/etc/passwd:ro
     - port_bindings:
-      - {{ settings.ssh_port }}:22/tcp
+      - {{ settings.ssh_port }}:2222/tcp
     - environment:
       - JEKYLL_GITHUB_USER: {{ settings.github_user }}
       - JEKYLL_GITHUB_REPO: {{ settings.github_repo }}
       - JEKYLL_GITHUB_BRANCH: {{ settings.github_branch }}
       - JEKYLL_GITHUB_SUBDIR: {{ settings.subdir }}
       - VIRTUAL_HOST: {{ settings.virtual_host }}
-      - VIRTUAL_PORT: 80
+      - VIRTUAL_PORT: 8080
       - LETSENCRYPT_HOST: {{ settings.letsencrypt_host }}
       - LETSENCRYPT_EMAIL: {{ settings.letsencrypt_email }}
     - require:
