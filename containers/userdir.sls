@@ -18,6 +18,7 @@ include:
     - binds:
       - /etc/ssh/auth/{{ site }}.yml:/etc/ssh/auth/users.yml:ro
       - /home:/home:ro
+      - /etc/passwd:/etc/passwd:ro
     - port_bindings:
       - {{ settings.ssh_port }}:22/tcp
     - environment:
