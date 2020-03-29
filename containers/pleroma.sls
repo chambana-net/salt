@@ -10,6 +10,7 @@ pleroma_src:
   git.latest:
     - name: https://git.pleroma.social/pleroma/pleroma.git
     - target: /var/tmp/pleroma
+    - rev: stable
     - force_reset: True
 
 pleroma_image:
