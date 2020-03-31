@@ -17,7 +17,7 @@ include:
       - local_network
     - binds:
       - /etc/ssh/auth/{{ site }}.yml:/etc/ssh/auth/users.yml:ro
-      - /home:/home:ro
+      - /home:/home:rw
     - port_bindings:
       - {{ settings.ssh_port }}:2222/tcp
     - environment:
