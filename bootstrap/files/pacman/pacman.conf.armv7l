@@ -22,7 +22,7 @@ HoldPkg     = pacman glibc
 Architecture = armv7h
 
 # Pacman won't upgrade packages listed in IgnorePkg and members of IgnoreGroup
-#IgnorePkg   =
+IgnorePkg   = python-msgpack
 #IgnoreGroup =
 
 #NoUpgrade   =
@@ -94,4 +94,3 @@ Server = https://xyne.archlinux.ca/bin/repo.php?file=
 #[custom]
 #SigLevel = Optional TrustAll
 #Server = file:///home/custompkgs
-
