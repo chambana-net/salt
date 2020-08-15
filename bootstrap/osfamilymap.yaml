@@ -2,12 +2,12 @@
 # vim: ft=yaml
 
 Debian:
-  dist: stretch
+  dist: buster
   components: main
   fortunes: /usr/share/games/fortunes
   fortune_bin: /usr/games/fortune
   salt_pkg: salt-minion
-  pygit_pkg: python-pygit2
+  pygit_pkg: python3-pygit2
   netdata_user: root
   netdata_group: root
 Arch:
