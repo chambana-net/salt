@@ -8,6 +8,7 @@ Debian:
   fortune_bin: /usr/games/fortune
   salt_pkg: salt-minion
   pygit_pkg: python3-pygit2
+  pydocker_pkg: python3-docker
   netdata_user: root
   netdata_group: root
 Arch:
@@ -15,5 +16,6 @@ Arch:
   fortune_bin: /usr/bin/fortune
   salt_pkg: salt-py3
   pygit_pkg: python-pygit2
+  pydocker_pkg: python-docker
   netdata_user: netdata
   netdata_group: netdata
